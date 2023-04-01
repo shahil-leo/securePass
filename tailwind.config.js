@@ -4,7 +4,16 @@ module.exports = {
     "./src/**/*.{html,ts}",
   ],
   theme: {
-    extend: {},
+    fontFamily: {
+      body: ['Opoen sans', 'sans-serify'],
+      openSans: ['Open Sans', 'sans-serif']
+    },
+    extend: {
+      colors: {
+        primary: '#175ddc',
+        secondary: ''
+      }
+    },
   },
   plugins: [],
 }

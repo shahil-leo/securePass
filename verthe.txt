@@ -1,0 +1,89 @@
+<nav class="bg-primary">
+  <div class="mx-auto max-w-screen-xl px-4 sm:px-6 lg:px-4">
+    <div class="flex h-20 items-center justify-between">
+      <div class="md:flex md:items-center md:gap-12">
+        <a class="block text-white" href="/">
+          <span class="sr-only">Home</span>
+          <object
+            data="../../../assets/CollectionSvg/logo.svg"
+            type="image/svg+xml"
+            width="50"
+            height="50"
+          ></object>
+        </a>
+      </div>
+      <div class="hidden md:block">
+        <nav aria-label="Site Nav">
+          <ul class="flex items-center gap-6 text-lg">
+            <li>
+              <a class="text-white transition hover:text-gray-500/75" href="/">
+                About
+              </a>
+            </li>
+
+            <li>
+              <a class="text-white transition hover:text-gray-500/75" href="/">
+                Careers
+              </a>
+            </li>
+
+            <li>
+              <a class="text-white transition hover:text-gray-500/75" href="/">
+                History
+              </a>
+            </li>
+
+            <li>
+              <a class="text-white transition hover:text-gray-500/75" href="/">
+                Services
+              </a>
+            </li>
+
+            <li>
+              <a class="text-white transition hover:text-gray-500/75" href="/">
+                Projects
+              </a>
+            </li>
+
+            <li>
+              <a class="text-white transition hover:text-gray-500/75" href="/">
+                Blog
+              </a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+
+      <div class="flex items-center gap-4">
+        <div class="sm:flex sm:gap-4">
+          <a
+            class="rounded-md bg-teal-600 px-5 py-2.5 text-sm font-medium text-white shadow"
+            href="/"
+          >
+            Login
+          </a>
+
+          <div class="hidden sm:flex">
+            <a
+              class="rounded-md bg-gray-100 px-5 py-2.5 text-sm font-medium text-teal-600"
+              href="/"
+            >
+              Register
+            </a>
+          </div>
+        </div>
+
+        <div class="block md:hidden">
+          <button class="rounded p-2 text-gray-600 transition">
+            <object
+              data="../../../assets/CollectionSvg/menuBar.svg"
+              type="image/svg+xml"
+              width="30"
+              height="30"
+            ></object>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
