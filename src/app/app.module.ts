@@ -7,6 +7,7 @@ import { NavbarComponent } from './layouts/navbar/navbar.component';
 import { HeroSectionComponent } from './layouts/hero-section/hero-section.component';
 import { HomeComponent } from './pages/home/home.component';
 import { FeaturesComponent } from './layouts/features/features.component';
+import { UpdatesComponent } from './layouts/updates/updates.component';
 
 @NgModule({
   declarations: [
@@ -14,7 +15,8 @@ import { FeaturesComponent } from './layouts/features/features.component';
     NavbarComponent,
     HeroSectionComponent,
     HomeComponent,
-    FeaturesComponent
+    FeaturesComponent,
+    UpdatesComponent
   ],
   imports: [
     BrowserModule,
