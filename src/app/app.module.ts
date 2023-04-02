@@ -12,7 +12,7 @@ import { HomeComponent } from './pages/home/home.component';
     AppComponent,
     NavbarComponent,
     HeroSectionComponent,
-    HomeComponent
+    HomeComponent,
   ],
   imports: [
     BrowserModule,
