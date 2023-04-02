@@ -8,7 +8,7 @@ import { HeroSectionComponent } from './layouts/hero-section/hero-section.compon
 import { HomeComponent } from './pages/home/home.component';
 import { FeaturesComponent } from './layouts/features/features.component';
 import { UpdatesComponent } from './layouts/updates/updates.component';
-
+import { PricingComponent } from './layouts/pricing/pricing.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -16,7 +16,8 @@ import { UpdatesComponent } from './layouts/updates/updates.component';
     HeroSectionComponent,
     HomeComponent,
     FeaturesComponent,
-    UpdatesComponent
+    UpdatesComponent,
+    PricingComponent,
   ],
   imports: [
     BrowserModule,
