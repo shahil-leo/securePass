@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { NavbarComponent } from './layouts/navbar/navbar.component';
 import { HeroSectionComponent } from './layouts/hero-section/hero-section.component';
 import { HomeComponent } from './pages/home/home.component';
+import { FeaturesComponent } from './layouts/features/features.component';
 
 @NgModule({
   declarations: [
@@ -13,6 +14,7 @@ import { HomeComponent } from './pages/home/home.component';
     NavbarComponent,
     HeroSectionComponent,
     HomeComponent,
+    FeaturesComponent
   ],
   imports: [
     BrowserModule,
