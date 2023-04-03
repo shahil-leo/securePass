@@ -27,8 +27,11 @@ export class LoginComponent implements OnInit {
 
   }
 
-  onSubmit(form: Data) {
-    console.log(form['value'])
+  onSubmit() {
+    console.log('leome');
+
+    console.log(this.form.value);
+    this.form.reset()
   }
 
 }

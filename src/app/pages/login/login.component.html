@@ -26,7 +26,7 @@
         ></object>
       </div>
       <!-- form section -->
-      <form [formGroup]="form" (submit)="onSubmit(form)">
+      <form [formGroup]="form" (submit)="onSubmit()">
         <div class="flex flex-col gap-5 px-3 rounded-md py-7">
           <div class="flex flex-col gap-3">
             <label for="">Email</label>
@@ -42,7 +42,7 @@
                 Email is Required
               </h1>
               <h1 class="text-red-500" *ngIf="fc['email'].errors!['pattern']">
-                Email is not valid
+                You must enter a valid email
               </h1>
             </div>
           </div>
@@ -71,12 +71,17 @@
               </h1>
             </div>
           </div>
-          <button class="p-3 mt-5 mb-5 text-white rounded-md bg-primary">
+          <button
+            [disabled]="form.invalid"
+            class="p-3 mt-5 mb-5 text-white rounded-md bg-primary"
+          >
             Login
           </button>
           <p>
             New around here?
-            <button class="text-primary">Create Account</button>
+            <button routerLink="/register" class="text-primary">
+              Create Account
+            </button>
           </p>
         </div>
       </form>

@@ -14,6 +14,7 @@ import { LoginComponent } from './pages/login/login.component';
 import { FormsModule } from '@angular/forms';
 import { FormBuilder } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
+import { RegisterComponent } from './pages/register/register.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -25,6 +26,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     PricingComponent,
     FooterComponent,
     LoginComponent,
+    RegisterComponent,
 
   ],
   imports: [
