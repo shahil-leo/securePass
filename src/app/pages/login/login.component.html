@@ -1,0 +1,85 @@
+<app-navbar></app-navbar>
+<div class="flex items-center justify-center h-screen">
+  <div class="mx-auto max-w-screen-2xl px-7">
+    <!-- title section -->
+    <div class="flex flex-col items-center justify-center">
+      <h1
+        class="mb-5 text-4xl font-semibold text-center text-primary font-openSans"
+      >
+        SecurePass
+      </h1>
+      <h1 class="max-w-sm mb-10 text-xl font-medium text-center font-openSans">
+        Log in or create a <a class="">new account</a> new account to access
+        your secure vault.
+      </h1>
+    </div>
+    <div
+      class="flex items-center justify-center gap-10 rounded-lg shadow-lg md:justify-between md:p-7"
+    >
+      <!-- image section -->
+      <div class="hidden md:block">
+        <object
+          data="../../../assets/undraw_access_account_re_8spm.svg"
+          type="image/svg+xml"
+          width="400"
+          height="400"
+        ></object>
+      </div>
+      <!-- form section -->
+      <form [formGroup]="form" (submit)="onSubmit(form)">
+        <div class="flex flex-col gap-5 px-3 rounded-md py-7">
+          <div class="flex flex-col gap-3">
+            <label for="">Email</label>
+            <input
+              formControlName="email"
+              class="px-4 py-3 border border-black rounded-md outline-primary"
+              type="email"
+              name="email"
+              placeholder="Enter your Email"
+            />
+            <div *ngIf="fc['email'].touched && fc['email'].invalid">
+              <h1 class="text-red-500" *ngIf="fc['email'].errors!['required']">
+                Email is Required
+              </h1>
+              <h1 class="text-red-500" *ngIf="fc['email'].errors!['pattern']">
+                Email is not valid
+              </h1>
+            </div>
+          </div>
+          <div class="flex flex-col gap-3">
+            <label for="">Password</label>
+            <input
+              formControlName="password"
+              class="px-4 py-3 border border-black rounded-md lg:w-[25rem] outline-primary"
+              type="password"
+              name="password"
+              placeholder="Enter your Password"
+            />
+            <div *ngIf="fc['password'].touched && fc['password'].invalid">
+              <h1
+                class="text-red-500"
+                *ngIf="fc['password'].errors!['required']"
+              >
+                Password is required
+              </h1>
+              <h1
+                class="max-w-sm text-red-500"
+                *ngIf="fc['password'].errors!['pattern']"
+              >
+                Password must be at least 8 characters long , have 1
+                uppercaseLetter and 1 lowercaseLetter
+              </h1>
+            </div>
+          </div>
+          <button class="p-3 mt-5 mb-5 text-white rounded-md bg-primary">
+            Login
+          </button>
+          <p>
+            New around here?
+            <button class="text-primary">Create Account</button>
+          </p>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
