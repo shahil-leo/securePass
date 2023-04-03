@@ -1,7 +1,8 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, NgControl, Validators } from '@angular/forms';
-import { Data } from '@angular/router';
-import { __values } from 'tslib';
+import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-login',
@@ -13,7 +14,12 @@ export class LoginComponent implements OnInit {
   form!: FormGroup
 
 
-  constructor(private fb: FormBuilder) { }
+  constructor(
+    private fb: FormBuilder,
+    private http: HttpClient,
+    private router: Router,
+    private toaster: ToastrService
+  ) { }
 
   ngOnInit() {
     this.form = this.fb.group({
@@ -27,10 +33,17 @@ export class LoginComponent implements OnInit {
 
   }
 
-  onSubmit() {
-    console.log('leome');
+  async onSubmit() {
 
-    console.log(this.form.value);
+
+
+    const result = await this.http.post('http://localhost:4000/login', this.form.value)
+    result.subscribe((value) => {
+      if (value) {
+        this.toaster.success("Logged In successFully")
+        this.router.navigate(['/dashboard'])
+      }
+    })
     this.form.reset()
   }
 
