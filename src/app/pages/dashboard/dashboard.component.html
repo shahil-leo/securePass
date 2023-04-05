@@ -1,6 +1,6 @@
 <!-- component -->
 <body class="antialiased font-poppins">
-  <div id="view" class="flex flex-row w-screen h-full">
+  <div id="view" class="flex flex-row">
     <button
       class="absolute top-0 left-0 p-2 text-gray-500 bg-white border-2 border-gray-200 rounded-md shadow-lg focus:bg-primary focus:outline-none focus:text-white sm:hidden"
     >
@@ -17,6 +17,7 @@
         ></path>
       </svg>
     </button>
+    <!-- the buttons in the sidebar -->
     <div
       id="sidebar"
       class="h-screen px-3 overflow-x-hidden transition-transform duration-300 ease-in-out bg-white shadow-xl md:block w-30 md:w-60 lg:w-60"
@@ -46,9 +47,49 @@
 
         <div
           id="menu"
-          class="flex flex-col items-center justify-center md:space-y-2"
+          class="flex flex-col items-center justify-center gap-4 md:space-y-2"
         >
           <a
+            class="p-1 text-sm font-medium text-gray-700 transition duration-150 ease-in-out rounded-md md:p-3 md:px-2 md:py-4 hover:bg-primary hover:text-white hover:text-base"
+          >
+            <div
+              class="flex flex-col items-center justify-center gap-2 md:block"
+            >
+              <svg
+                class="inline-block w-6 h-6 fill-current"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M5 3a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2V5a2 2 0 00-2-2H5zM5 11a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2v-2a2 2 0 00-2-2H5zM11 5a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V5zM11 13a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"
+                ></path>
+              </svg>
+              <span class="block text-xs md:mt-4 md:inline md:mx-2"
+                >Dashboard</span
+              >
+            </div> </a
+          ><a
+            class="text-sm font-medium text-gray-700 transition duration-150 ease-in-out rounded-md md:px-2 md:py-4 hover:bg-primary hover:text-white hover:text-base"
+          >
+            <div
+              class="flex flex-col items-center justify-center gap-2 md:block"
+            >
+              <svg
+                class="inline-block w-6 h-6 fill-current"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M5 3a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2V5a2 2 0 00-2-2H5zM5 11a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2v-2a2 2 0 00-2-2H5zM11 5a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V5zM11 13a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"
+                ></path>
+              </svg>
+              <span class="block text-xs md:mt-4 md:inline md:mx-2"
+                >Dashboard</span
+              >
+            </div> </a
+          ><a
             class="text-sm font-medium text-gray-700 transition duration-150 ease-in-out rounded-md md:px-2 md:py-4 hover:bg-primary hover:text-white hover:text-base"
           >
             <div
@@ -73,7 +114,7 @@
       </div>
     </div>
     <!-- end of side bar -->
-    <div class="bg-[#eaeff9] lg:w w-full px-4 py-4 md:px-10 md:py-5">
+    <div class="bg-[#eaeff9] lg:w w-full px-4 py-4 md:px-10 md:py-5 lg:px-20">
       <div class="flex flex-col justify-between gap-5 md:flex-row">
         <div class="flex flex-col gap-5 md:flex-row">
           <button
@@ -91,16 +132,70 @@
           <input
             placeholder="Search you site here"
             type="text "
-            class="hidden w-full p-2 bg-white border rounded-md shadow-md md:max-w-screen-sm md:block"
+            class="hidden w-full p-2 bg-white border rounded-md shadow-md outline-none md:max-w-screen-sm md:block"
           />
         </div>
       </div>
-      <div class="flex justify-between w-full bg-white">
-        <div class="w-[20%] bg-yellow-300">
-          <h1>money</h1>
+      <!-- the box -->
+      <!--the box section  -->
+      <div
+        class="container mx-auto mt-10 bg-white rounded-lg md:mt-20 max-w-screen-2xl"
+      >
+        <div class="flex flex-row p-6 overflow-hidden rounded-md">
+          <div class="hidden md:flex items-center justify-center w-[30%]">
+            <object
+              width="300"
+              height="210"
+              data="../../../assets/suui-bulb-animate (1).svg"
+              type="image/svg+xml"
+            ></object>
+          </div>
+          <div class="w-full justify-center flex flex-col gap-4 md:w-[70%]">
+            <h1 class="text-2xl font-medium">Welcome to our Vault</h1>
+            <h2 class="max-w-screen-md">
+              The Vault is a safe place to to store passwords for online
+              shopping and even documents.And no matter where you work,you vault
+              keeps everything in sync.So you can stay organized and save time
+            </h2>
+            <div class="flex gap-3">
+              <button class="px-2 py-2 border-2 rounded-md border-primary">
+                Take short Tour
+              </button>
+              <button class="px-3 py-4 border-2 rounded-md border-primary/25">
+                May be latter
+              </button>
+            </div>
+          </div>
         </div>
-        <div class="w-[80%] bg-yellow-200">
-          <h1>shahil</h1>
+      </div>
+      <!-- the cart section -->
+      <div class="body-font">
+        <div class="container py-12 mx-auto mt-10 bg-white rounded-lg px-7">
+          <h1 class="mb-10 text-2xl font-medium text-black">All Items</h1>
+          <div class="flex flex-wrap -m-4">
+            <div class="p-4 md:w-1/3">
+              <div
+                class="h-full overflow-hidden border-2 border-gray-200 rounded-lg shadow-lg border-opacity-60"
+              >
+                <img
+                  class="object-cover object-center w-full lg:h-48 md:h-36"
+                  alt="blog"
+                  src=""
+                />
+                <div class="p-6">
+                  <h2
+                    class="mb-1 text-xs font-medium tracking-widest text-gray-400 title-font"
+                  >
+                    Passwords
+                  </h2>
+                  <h1 class="mb-3 text-lg font-medium text-gray-900 title-font">
+                    Amazon
+                  </h1>
+                  <p class="mb-3 leading-relaxed">mshahilkv@gmail.com</p>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
