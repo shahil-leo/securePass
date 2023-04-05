@@ -1,1 +1,108 @@
-<p>dashboard works!</p>
+<!-- component -->
+<body class="antialiased font-poppins">
+  <div id="view" class="flex flex-row w-screen h-full">
+    <button
+      class="absolute top-0 left-0 p-2 text-gray-500 bg-white border-2 border-gray-200 rounded-md shadow-lg focus:bg-primary focus:outline-none focus:text-white sm:hidden"
+    >
+      <svg
+        class="w-5 h-5 fill-current"
+        fill="currentColor"
+        viewBox="0 0 20 20"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          fill-rule="evenodd"
+          d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
+          clip-rule="evenodd"
+        ></path>
+      </svg>
+    </button>
+    <div
+      id="sidebar"
+      class="h-screen px-3 overflow-x-hidden transition-transform duration-300 ease-in-out bg-white shadow-xl md:block w-30 md:w-60 lg:w-60"
+      x-show="sidenav"
+    >
+      <div class="mt-10 space-y-6 md:space-y-10">
+        <h1 class="text-4xl font-bold text-center md:hidden">
+          S<span class="text-primary">.</span>
+        </h1>
+        <h1 class="text-sm font-bold text-center md:block md:text-xl">
+          secure<span class="text-primary">Pass.</span>
+        </h1>
+        <div id="profile" class="space-y-3">
+          <img
+            src="https://images.unsplash.com/photo-1628157588553-5eeea00af15c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80"
+            alt="Avatar user"
+            class="w-10 mx-auto rounded-full md:mt-20 md:w-16"
+          />
+          <div>
+            <h2
+              class="max-w-xs mb-20 text-xs font-medium text-center text-primarbg-primary md:text-sm"
+            >
+              Shahil
+            </h2>
+          </div>
+        </div>
+
+        <div
+          id="menu"
+          class="flex flex-col items-center justify-center md:space-y-2"
+        >
+          <a
+            class="text-sm font-medium text-gray-700 transition duration-150 ease-in-out rounded-md md:px-2 md:py-4 hover:bg-primary hover:text-white hover:text-base"
+          >
+            <div
+              class="flex flex-col items-center justify-center gap-2 md:block"
+            >
+              <svg
+                class="inline-block w-6 h-6 fill-current"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M5 3a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2V5a2 2 0 00-2-2H5zM5 11a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2v-2a2 2 0 00-2-2H5zM11 5a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V5zM11 13a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"
+                ></path>
+              </svg>
+              <span class="block text-xs md:mt-4 md:inline md:mx-2"
+                >Dashboard</span
+              >
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+    <!-- end of side bar -->
+    <div class="bg-[#eaeff9] lg:w w-full px-4 py-4 md:px-10 md:py-5">
+      <div class="flex flex-col justify-between gap-5 md:flex-row">
+        <div class="flex flex-col gap-5 md:flex-row">
+          <button
+            class="shadow-md px-3 py-2 md:w-[43.75rem] text-base text-white rounded-md md:text-lg bg-secondary"
+          >
+            Generate Password
+          </button>
+          <button
+            class="shadow-md w-full px-3 py-2 md:max-w-[35.5rem] text-base text-white rounded-md md:text-lg bg-primary"
+          >
+            + Add New site
+          </button>
+        </div>
+        <div>
+          <input
+            placeholder="Search you site here"
+            type="text "
+            class="hidden w-full p-2 bg-white border rounded-md shadow-md md:max-w-screen-sm md:block"
+          />
+        </div>
+      </div>
+      <div class="flex justify-between w-full bg-white">
+        <div class="w-[20%] bg-yellow-300">
+          <h1>money</h1>
+        </div>
+        <div class="w-[80%] bg-yellow-200">
+          <h1>shahil</h1>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
