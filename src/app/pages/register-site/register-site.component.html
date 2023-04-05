@@ -1,0 +1,127 @@
+<app-navbar class="hidden md:block"></app-navbar>
+<div class="max-w-screen-xl px-4 py-16 mx-auto md:pt-32 sm:px-6 lg:px-8">
+  <div class="max-w-lg mx-auto">
+    <h1 class="text-2xl font-bold text-center text-primary sm:text-3xl">
+      Add new site
+    </h1>
+
+    <p class="max-w-md mx-auto mt-4 text-center text-gray-500">
+      create a new site to your dashboard and store unlimited passwords in
+      there..
+    </p>
+
+    <form
+      [formGroup]="Form"
+      (submit)="submit()"
+      class="p-4 mt-6 mb-0 space-y-4 rounded-lg shadow-lg sm:p-6 lg:p-8"
+    >
+      <!-- site name -->
+      <div>
+        <div class="relative">
+          <label for="sitename" class="sr-only">Site Name</label>
+          <input
+            type="text"
+            class="w-full p-4 pr-12 text-sm border-gray-200 rounded-lg shadow-sm outline-primary"
+            placeholder="Enter site name"
+            id="sitename"
+            formControlName="siteName"
+          />
+          <div *ngIf="fc['siteName'].touched && fc['siteName'].invalid">
+            <h1 class="text-red-500" *ngIf="fc['siteName'].errors!['required']">
+              Site name Url is required
+            </h1>
+            <h1
+              class="text-red-500"
+              *ngIf="fc['siteName'].errors!['minlength']"
+            >
+              Site name url min length is 4
+            </h1>
+          </div>
+        </div>
+      </div>
+      <!-- site url -->
+      <div>
+        <label for="siteUrl" class="sr-only">siteUrl</label>
+
+        <div class="relative">
+          <input
+            type="text"
+            class="w-full p-4 pr-12 text-sm border-gray-200 rounded-lg shadow-sm outline-primary"
+            placeholder="Enter siteUrl"
+            id="siteUrl"
+            formControlName="siteUrl"
+          />
+          <div *ngIf="fc['siteUrl'].touched && fc['siteUrl'].invalid">
+            <h1 class="text-red-500" *ngIf="fc['siteUrl'].errors!['required']">
+              Site url is required
+            </h1>
+            <h1 class="text-red-500" *ngIf="fc['siteUrl'].errors!['minlength']">
+              Site url min length is 4
+            </h1>
+          </div>
+        </div>
+      </div>
+      <!-- site image url -->
+      <div>
+        <label for="siteImgUrl" class="sr-only">Site Image Url</label>
+        <div class="relative">
+          <input
+            type="text"
+            class="w-full p-4 pr-12 text-sm border-gray-200 rounded-lg shadow-sm outline-primary"
+            placeholder="Paste the site image url here"
+            id="siteImgUrl"
+            formControlName="siteImgUrl"
+          />
+          <div *ngIf="fc['siteImgUrl'].touched && fc['siteImgUrl'].invalid">
+            <h1
+              class="text-red-500"
+              *ngIf="fc['siteImgUrl'].errors!['required']"
+            >
+              Site image Url is required
+            </h1>
+            <h1
+              class="text-red-500"
+              *ngIf="fc['siteImgUrl'].errors!['minlength']"
+            >
+              Site Image url min length is 4
+            </h1>
+          </div>
+        </div>
+      </div>
+      <!-- category input form -->
+      <div>
+        <label for="Category" class="sr-only">Category</label>
+
+        <div class="relative">
+          <input
+            type="Category"
+            class="w-full p-4 pr-12 text-sm border-gray-200 rounded-lg shadow-sm outline-primary"
+            placeholder="Enter your Category"
+            formControlName="Category"
+            id="Category"
+          />
+
+          <div *ngIf="fc['Category'].touched && fc['Category'].invalid">
+            <h1
+              *ngIf="fc['Category'].errors!['minlength']"
+              class="text-red-500"
+            >
+              Must provide 2 or more letters
+            </h1>
+            <h1 *ngIf="fc['Category'].errors!['required']" class="text-red-500">
+              Category is required
+            </h1>
+          </div>
+        </div>
+      </div>
+      <!-- submit form -->
+      <button
+        [disabled]="Form.invalid"
+        class="block w-full px-5 py-3 text-sm font-medium text-white rounded-lg bg-primary"
+        type="submit"
+      >
+        Create new site
+      </button>
+    </form>
+  </div>
+</div>

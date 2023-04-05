@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, NgControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { throwError } from 'rxjs';
+import { MongoDBService } from 'src/app/services/mongo-db.service';
 
 @Component({
   selector: 'app-login',
@@ -19,7 +20,8 @@ export class LoginComponent implements OnInit {
     private fb: FormBuilder,
     private http: HttpClient,
     private router: Router,
-    private toaster: ToastrService
+    private toaster: ToastrService,
+    private mongoService: MongoDBService
   ) { }
 
   ngOnInit() {
@@ -34,28 +36,16 @@ export class LoginComponent implements OnInit {
 
   }
 
-  async onSubmit() {
-    this.http.post('http://localhost:4000/login', this.form.value).subscribe({
+  onSubmit() {
+
+    this.mongoService.loginUser('http://localhost:4000/login', this.form.value).subscribe({
       next: () => this.toaster.success("login successFully"),
-      error: (err) => this.handleError(err),
+      error: (err: HttpErrorResponse) => this.toaster.error(err.error),
       complete: () => { this.router.navigate(['/dashboard']) }
     })
   }
 
-  // handle error function
-  handleError(error: HttpErrorResponse) {
-    if (error.status === 401) {
-      // Unauthorized access error
-      console.error('Unauthorized shahil error:', error.error);
-      this.toaster.error(error.error)
-      return throwError(() => new Error('test'));
-    } else {
-      console.error('An error occurred:', error.error);
-      this.toaster.error(error.error)
 
-      return throwError(() => new Error('test'));
-    }
-  };
 
 
 }

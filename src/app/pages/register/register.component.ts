@@ -7,6 +7,7 @@ import { catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
+import { MongoDBService } from 'src/app/services/mongo-db.service';
 
 @Component({
   selector: 'app-register',
@@ -22,7 +23,8 @@ export class RegisterComponent {
     private fb: FormBuilder,
     private http: HttpClient,
     private toaster: ToastrService,
-    private router: Router
+    private router: Router,
+    private mongoService: MongoDBService
   ) {
     this.Form = this.fb.group({
       firstName: ['', [Validators.required, Validators.minLength(2)]],
@@ -39,34 +41,14 @@ export class RegisterComponent {
 
 
   onSubmit() {
-    // this.http.post('http://localhost:4000/register', this.Form.value).pipe(catchError((err) => this.handleError(err))).subscribe(() => {
-    //   this.toaster.success('User created successFully')
-    // })
-
-    this.http.post('http://localhost:4000/register', this.Form.value).subscribe({
-      next: (value) => console.log(value),
-      error: (err) => this.handleError(err),
-      complete: () => {
-        this.router.navigate(['/dashboard'])
+    this.mongoService.addUser('http://localhost:4000/register', this.Form.value).subscribe(
+      {
+        next: () => this.toaster.success("Registration Successfully"),
+        error: (err: HttpErrorResponse) => { this.toaster.error(err.error), console.log(err.error) },
+        complete: () => this.router.navigate(['/dashboard'])
       }
-
-    })
+    )
   }
-
-  // handle error function
-  handleError(error: HttpErrorResponse) {
-    if (error.status === 401) {
-      // Unauthorized access error
-      console.error('Unauthorized shahil error:', error.error);
-      this.toaster.error(error.error)
-      return throwError(() => new Error('test'));
-    } else {
-      console.error('An error occurred:', error.error);
-      this.toaster.error(error.error)
-
-      return throwError(() => new Error('test'));
-    }
-  };
 
 }
 
