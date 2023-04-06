@@ -3,7 +3,6 @@ const myModel = require('./userModel')
 const bcrypt = require('bcrypt')
 const { MongoClient, ObjectId } = require('mongodb');
 
-
 router.get('/shahil', (req, res) => {
   res.send('wow shahil you did it')
 })
@@ -52,13 +51,28 @@ router.post('/login', async (req, res) => {
 
 router.put('/add/:userId', async (req, res) => {
 
+  const sites = req.body.sites
+
+
   const { error } = req.body
   if (error) return res.status(500).send(error[0].message)
 
-  const updatedSites = await myModel.userModel.updateOne({ _id: new ObjectId(req.params.userId) }, { $push: { site: req.body.sites } })
-  if (!updatedSites) return res.status(500).send("why bot")
+  const updatedSites = await myModel.userModel.updateOne(
+    { _id: new ObjectId(req.params.userId) },
+    { $push: { sites: sites } })
+  if (!updatedSites) return res.status(500).send("Site not added or updated")
   res.status(200).send(updatedSites)
+
 })
 
+router.get('/siteList/:userId', async (req, res) => {
+  const userId = req.params.userId
+  const { error } = req.body
+  if (error) return res.status(500).send(error[0].message)
+
+  const getSitesArray = await myModel.userModel.findOne({ _id: userId }, { sites: 1, })
+  if (!getSitesArray) return res.status(400).send("Not found the Array")
+  res.status(200).send(getSitesArray)
+})
 
 module.exports = router

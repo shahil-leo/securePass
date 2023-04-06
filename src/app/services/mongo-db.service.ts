@@ -28,4 +28,10 @@ export class MongoDBService {
     return this.http.put(`http://localhost:4000/add/${id}`, { sites: data })
   }
 
+  getSites() {
+    const id = localStorage.getItem('id')
+    console.log(id);
+    return this.http.get(`http://localhost:4000/siteList/${id}`)
+  }
+
 }

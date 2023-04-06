@@ -5,20 +5,12 @@ const UserSchema = mongoose.Schema({
   lastName: String,
   email: String,
   password: String,
-  site: []
+  sites: []
 
 })
 const userModel = mongoose.model('Users', UserSchema)
 
 
-const siteSchema = mongoose.Schema({
-  siteName: String,
-  siteUrl: String,
-  siteImgUrl: String,
-  Category: String
-})
-const siteModel = mongoose.model('slee', siteSchema)
 module.exports = {
   userModel,
-  siteModel
 }

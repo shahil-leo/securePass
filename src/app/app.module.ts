@@ -20,6 +20,7 @@ import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { RegisterSiteComponent } from './pages/register-site/register-site.component';
+import { RegisterPasswordComponent } from './pages/register-password/register-password.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { RegisterSiteComponent } from './pages/register-site/register-site.compo
     RegisterComponent,
     DashboardComponent,
     RegisterSiteComponent,
+    RegisterPasswordComponent,
 
   ],
   imports: [
