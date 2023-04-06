@@ -4,7 +4,21 @@ const UserSchema = mongoose.Schema({
   firstName: String,
   lastName: String,
   email: String,
-  password: String
-})
+  password: String,
+  site: []
 
-module.exports = mongoose.model('Users', UserSchema)
+})
+const userModel = mongoose.model('Users', UserSchema)
+
+
+const siteSchema = mongoose.Schema({
+  siteName: String,
+  siteUrl: String,
+  siteImgUrl: String,
+  Category: String
+})
+const siteModel = mongoose.model('slee', siteSchema)
+module.exports = {
+  userModel,
+  siteModel
+}

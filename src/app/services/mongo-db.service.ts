@@ -1,7 +1,6 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { ToastrService } from 'ngx-toastr';
-import { Observable, throwError } from 'rxjs';
+import { Observable, } from 'rxjs';
 import { register, login } from '../../../src/app/models/mongo-data'
 
 @Injectable({
@@ -11,7 +10,6 @@ export class MongoDBService {
 
 
   constructor(
-    private toaster: ToastrService,
     private http: HttpClient
   ) { }
 
@@ -21,6 +19,13 @@ export class MongoDBService {
   }
   loginUser(api: string, data: login) {
     return this.http.post(api, data)
+  }
+
+
+  addSites(data: any): Observable<any> {
+    console.log(data);
+    const id = localStorage.getItem('id')
+    return this.http.put(`http://localhost:4000/add/${id}`, { sites: data })
   }
 
 }

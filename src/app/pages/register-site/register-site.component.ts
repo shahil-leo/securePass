@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+import { MongoDBService } from 'src/app/services/mongo-db.service';
 
 @Component({
   selector: 'app-register-site',
@@ -10,7 +13,12 @@ export class RegisterSiteComponent {
 
   Form!: FormGroup
 
-  constructor(private fb: FormBuilder) {
+  constructor(
+    private fb: FormBuilder,
+    private mongoService: MongoDBService,
+    private toaster: ToastrService,
+    private router: Router,
+  ) {
     this.Form = fb.group({
       siteName: ['', [Validators.required, Validators.minLength(2)]],
       siteUrl: ['', [Validators.required, Validators.minLength(4)]],
@@ -23,8 +31,14 @@ export class RegisterSiteComponent {
     return this.Form?.controls
   }
   submit() {
-    console.log('shahil');
-    console.log(this.Form.value);
+    this.mongoService.addSites(this.Form.value).subscribe(
+      {
+        next: (res) => { this.toaster.success("Site successfully added"), console.log(res) },
+        error: (e) => this.toaster.error(e.error),
+        complete: () => { this.router.navigate(['/dashboard']) }
+      },
+
+    )
   }
 
 }

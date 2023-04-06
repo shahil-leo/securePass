@@ -14,11 +14,11 @@ import { MongoDBService } from 'src/app/services/mongo-db.service';
 export class LoginComponent implements OnInit {
 
   form!: FormGroup
-
+  loggedUserId!: string
+  passwordVisible: boolean = false
 
   constructor(
     private fb: FormBuilder,
-    private http: HttpClient,
     private router: Router,
     private toaster: ToastrService,
     private mongoService: MongoDBService
@@ -33,19 +33,19 @@ export class LoginComponent implements OnInit {
 
   get fc() {
     return this.form.controls
-
   }
 
   onSubmit() {
-
     this.mongoService.loginUser('http://localhost:4000/login', this.form.value).subscribe({
-      next: () => this.toaster.success("login successFully"),
+      next: (res: any) => { this.loggedUserId = res._id, this.toaster.success("login successFully") },
       error: (err: HttpErrorResponse) => this.toaster.error(err.error),
-      complete: () => { this.router.navigate(['/dashboard']) }
+      complete: () => { localStorage.setItem('id', this.loggedUserId), this.router.navigate(['/dashboard']) }
     })
+
   }
 
-
-
+  onTogglePasswordShow() {
+    this.passwordVisible = !this.passwordVisible
+  }
 
 }
