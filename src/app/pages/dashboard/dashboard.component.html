@@ -240,15 +240,26 @@
                   <p class="mb-3 leading-relaxed">{{ site.siteUrl }}</p>
 
                   <div class="flex flex-col gap-5 md:flex-row">
-                    <button class="px-4 py-2 text-white rounded-lg bg-primary">
+                    <button
+                      [routerLink]="[
+                        '/register-password',
+                        site.id,
+                        'addPassword'
+                      ]"
+                      class="px-4 py-2 text-white rounded-lg bg-primary"
+                    >
                       Add Password
                     </button>
                     <button
                       class="px-4 py-2 text-white bg-yellow-300 rounded-lg"
+                      [routerLink]="['/register-password', site.id, 'edit']"
                     >
                       Edit
                     </button>
-                    <button class="px-4 py-2 text-white bg-red-500 rounded-lg">
+                    <button
+                      [routerLink]="['/register-password', site.id, 'delete']"
+                      class="px-4 py-2 text-white bg-red-500 rounded-lg"
+                    >
                       Delete
                     </button>
                   </div>

@@ -34,4 +34,10 @@ export class MongoDBService {
     return this.http.get(`http://localhost:4000/siteList/${id}`)
   }
 
+  getObject(id: string) {
+    const userId = localStorage.getItem('id')
+    console.log(userId);
+    console.log(id)
+    return this.http.get(`http://localhost:4000/siteObject/${id}/${userId}`)
+  }
 }
