@@ -1,11 +1,10 @@
 const router = require('express').Router()
 const myModel = require('./userModel')
 const bcrypt = require('bcrypt')
-const { MongoClient, ObjectId } = require('mongodb');
+const { ObjectId } = require('mongodb');
 
-router.get('/shahil', (req, res) => {
-  res.send('wow shahil you did it')
-})
+
+
 
 router.post('/register', async (req, res) => {
 
@@ -36,7 +35,6 @@ router.post('/register', async (req, res) => {
 })
 
 router.post('/login', async (req, res) => {
-
   const { error } = req.body
   if (error) return res.status(500).send(error[0].message)
 
@@ -48,12 +46,9 @@ router.post('/login', async (req, res) => {
   res.status(200).send(userByEmail)
 
 })
-
+// updating or adding siteList data
 router.put('/add/:userId', async (req, res) => {
-
   const sites = req.body.sites
-
-
   const { error } = req.body
   if (error) return res.status(500).send(error[0].message)
 
@@ -64,7 +59,7 @@ router.put('/add/:userId', async (req, res) => {
   res.status(200).send(updatedSites)
 
 })
-
+// getting details about siteList array
 router.get('/siteList/:userId', async (req, res) => {
   const userId = req.params.userId
   const { error } = req.body
@@ -75,4 +70,22 @@ router.get('/siteList/:userId', async (req, res) => {
   res.status(200).send(getSitesArray)
 })
 
+
+// inside the array site i have object i want to get that
+
+router.get('/siteObject/:id/:userId', async (req, res) => {
+  const objId = req.params.id
+  const userId = req.params.userId
+
+  const getObject = await myModel.userModel.findOne({ _id: userId })
+  const sites = await getObject.sites.find(site => site.id === objId)
+
+  if (!getObject) return res.status(400).send("not found the object")
+  res.status(200).send(sites)
+})
+
+
 module.exports = router
+
+
+
