@@ -6,6 +6,8 @@ var CryptoJS = require("crypto-js");
 const dotenv = require('dotenv')
 dotenv.config()
 const secretKey = process.env.secret_crypto
+const uuid = require('uuid')
+
 
 
 router.post('/register', async (req, res) => {
@@ -88,12 +90,12 @@ router.get('/siteObject/:id/:userId', async (req, res) => {
 
 // adding passwords to the sites
 router.put('/sitePasswordCreate/:id/:userId', async (req, res) => {
-  console.log(req.body)
 
   const passwordHash = CryptoJS.AES.encrypt(req.body.password, secretKey).toString()
+  const id = uuid.v4()
 
   const form = {
-
+    id: id,
     email: req.body.email,
     username: req.body.username,
     passwordHint: req.body.passwordHint,
@@ -111,7 +113,6 @@ router.put('/sitePasswordCreate/:id/:userId', async (req, res) => {
   res.status(200).send(updatedUser)
 
 })
-
 
 module.exports = router
 
