@@ -101,7 +101,7 @@ router.put('/sitePasswordCreate/:id/:userId', async (req, res) => {
     passwordHint: req.body.passwordHint,
     password: passwordHash
   }
-  console.log(form)
+
   const objId = req.params.id
   const userId = req.params.userId
   const updatedUser = await myModel.userModel.updateOne(
