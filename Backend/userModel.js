@@ -8,9 +8,7 @@ const UserSchema = mongoose.Schema({
   sites: []
 
 })
-const userModel = mongoose.model('Users', UserSchema)
+
+module.exports = mongoose.model('Users', UserSchema)
 
 
-module.exports = {
-  userModel,
-}

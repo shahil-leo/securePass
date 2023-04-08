@@ -6,7 +6,8 @@ const cors = require('cors')
 app.use(bodyParser.json())
 app.use(cors())
 const userCreate = require('./createUser')
-const { MongoClient, ObjectId } = require('mongodb');
+const siteList = require('./siteList')
+const passwordList = require('./passwordList')
 
 const dotenv = require('dotenv')
 dotenv.config()
@@ -26,7 +27,8 @@ mongoose.connect(mongoUrl).then(() => {
 })
 
 app.use('/', userCreate)
-
+app.use('/', siteList)
+app.use('/', passwordList)
 
 
 // structure of mongoDB database
