@@ -2,8 +2,10 @@ const router = require('express').Router()
 const myModel = require('./userModel')
 const bcrypt = require('bcrypt')
 const { ObjectId } = require('mongodb');
-
-
+var CryptoJS = require("crypto-js");
+const dotenv = require('dotenv')
+dotenv.config()
+const secretKey = process.env.secret_crypto
 
 
 router.post('/register', async (req, res) => {
@@ -84,21 +86,25 @@ router.get('/siteObject/:id/:userId', async (req, res) => {
   res.status(200).send(sites)
 })
 
+// adding passwords to the sites
 router.put('/sitePasswordCreate/:id/:userId', async (req, res) => {
   console.log(req.body)
+
+  const passwordHash = CryptoJS.AES.encrypt(req.body.password, secretKey).toString()
+
+  const form = {
+
+    email: req.body.email,
+    username: req.body.username,
+    passwordHint: req.body.passwordHint,
+    password: passwordHash
+  }
+  console.log(form)
   const objId = req.params.id
   const userId = req.params.userId
-  // const getObject = await myModel.userModel.findOne({ _id: userId })
-  // const sites = await getObject.sites.find(site => site.id === objId)
-  // const updatedSites = await myModel.userModel.updateOne({ "_id": objId }, { $push: { sites: req.body } })
-  // if (!updatedSites) return res.status(500).send("Site not added or updated")
-
-  // if (!sites) res.send("there is no data")
-  // res.status(200).send(updatedSites)
-
   const updatedUser = await myModel.userModel.updateOne(
-    { _id: new ObjectId(userId), "sites.id": objId }, // filter to find the correct object inside the "sites" array
-    { $push: { "sites.$.passwordList": req.body } } // use $set operator to add the new array to the existing object
+    { _id: new ObjectId(userId), "sites.id": objId },
+    { $push: { "sites.$.passwordList": form } }
   );
 
   if (!updatedUser) res.send("there is no data")
