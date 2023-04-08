@@ -16,7 +16,7 @@ export class RegisterPasswordComponent implements OnInit {
   Form!: FormGroup
 
   siteObject!: any
-
+  passwordList!: any
   constructor(
     private route: ActivatedRoute,
     private mongoService: MongoDBService,
@@ -33,9 +33,8 @@ export class RegisterPasswordComponent implements OnInit {
   }
 
   submit() {
-
-
-
+    this.passwordList = this.mongoService.CreatePasswordList(this.siteObject.id, this.Form.value).subscribe(
+      { next: (res) => console.log(res), error: (err) => { console.log(err) }, complete: () => { console.log('completed') } })
     console.log(this.Form.value)
 
   }

@@ -40,4 +40,10 @@ export class MongoDBService {
     console.log(id)
     return this.http.get(`http://localhost:4000/siteObject/${id}/${userId}`)
   }
+
+  CreatePasswordList(id: string, data: object) {
+    const userId = localStorage.getItem('id')
+    console.log({ id, userId })
+    return this.http.put(`http://localhost:4000/sitePasswordCreate/${id}/${userId}`, data)
+  }
 }
