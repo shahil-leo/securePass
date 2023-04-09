@@ -36,4 +36,39 @@ router.put('/sitePasswordCreate/:id/:userId', async (req, res) => {
 
 })
 
+router.put('/siteUpdatePassword/:id/:userId', async (req, res) => {
+  const updatedData = req.body
+  const userId = req.params.userId
+  const id = req.params.id
+  console.log(userId);
+  console.log(id);
+  console.log(updatedData.email);
+  const updatedPassword = await userModel.updateOne(
+    { _id: new ObjectId(userId), "passwordList.id": id },
+    { $set: { "passwordList.$.email": updatedData.email, "passwordList.$.username": updatedData.username } }
+  )
+  console.log(updatedPassword)
+  if (!updatedPassword.acknowledged) {
+    res.status(500).send("Not updated")
+    return
+  }
+  res.send(updatedData)
+})
+
+router.delete('siteDeletePassword/:id/:userId', async (req, res) => {
+  const userId = req.params.userId
+  const id = req.params.id
+  console.log(id)
+  const deletedPass = userModel.updateOne(
+    { _id: new ObjectId(userId) },
+    { $pull: { passwordList: { id: id } } }
+  )
+  if (!deletedPass) {
+    res.status(500).send("Not deleted")
+    return
+  }
+  res.send(deletedPass)
+})
+
+
 module.exports = router
