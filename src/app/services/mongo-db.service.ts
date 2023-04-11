@@ -46,10 +46,10 @@ export class MongoDBService {
     return this.http.put(`http://localhost:4000/sitePasswordCreate/${id}/${userId}`, data)
   }
 
-  updatePasswordList(id: string, data: object) {
+  updatePasswordList(id: string, data: object, SitesId: string) {
     const userId = localStorage.getItem('id')
-    console.log({ id, userId })
-    return this.http.put(`http://localhost:4000/siteUpdatePassword/${id}/${userId}`, data)
+    console.log({ id, userId, SitesId })
+    return this.http.put(`http://localhost:4000/siteUpdatePassword/${id}/${userId}/${SitesId}`, data)
   }
 
 

@@ -36,23 +36,35 @@ router.put('/sitePasswordCreate/:id/:userId', async (req, res) => {
 
 })
 
-router.put('/siteUpdatePassword/:id/:userId', async (req, res) => {
+router.put('/siteUpdatePassword/:id/:userId/:sitesId', async (req, res) => {
   const updatedData = req.body
   const userId = req.params.userId
   const id = req.params.id
-  console.log(userId);
-  console.log(id);
-  console.log(updatedData.email);
-  const updatedPassword = await userModel.updateOne(
-    { _id: new ObjectId(userId), "passwordList.id": id },
-    { $set: { "passwordList.$.email": updatedData.email, "passwordList.$.username": updatedData.username } }
+  const sitesId = req.params.sitesId
+
+  const findUser = await userModel.find(
+    { _id: new ObjectId(userId), "sites.id": sitesId, "passwordList.id": id }
   )
-  console.log(updatedPassword)
-  if (!updatedPassword.acknowledged) {
-    res.status(500).send("Not updated")
-    return
-  }
-  res.send(updatedData)
+  res.send(findUser)
+  console.log(findUser)
+
+  // const updatedPassword = await userModel.updateOne(
+  //   { _id: new ObjectId(userId), "passwordList.id": id },
+  //   {
+  //     $addToSet: {
+  //       "passwordList.$.email": updatedData.email,
+  //       "passwordList.$.username": updatedData.username,
+  //       "passwordList.$.passwordHint": updatedData.passwordHint,
+  //       "passwordList.$.password": updatedData.password
+  //     }
+  //   }
+  // );
+  // console.log(updatedPassword)
+  // if (!updatedPassword.acknowledged) {
+  //   res.status(500).send("Not updated")
+  //   return
+  // }
+  // res.send(updatedData)
 })
 
 router.delete('siteDeletePassword/:id/:userId', async (req, res) => {

@@ -48,7 +48,7 @@ export class RegisterPasswordComponent implements OnInit {
         { next: (res) => console.log(res), error: (err) => { console.log(err) }, complete: () => { console.log('completed') } })
       console.log(this.Form.value)
     } else if (this.formState === 'Edit') {
-      this.mongoService.updatePasswordList(this.passwordOneId, this.Form.value).subscribe({
+      this.mongoService.updatePasswordList(this.passwordOneId, this.Form.value, this.siteId).subscribe({
         next: (res) => { console.log(res) },
         error: (e) => { console.log(e) },
         complete: () => { console.log('suiiii updated') }
