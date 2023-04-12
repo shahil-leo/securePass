@@ -34,6 +34,14 @@ export class MongoDBService {
     return this.http.put(`http://localhost:4000/updateSites/${sitesId}/${id}`, data)
   }
 
+  // delete sites
+
+  deleteSite(id: String) {
+    const userId = localStorage.getItem('id')
+    console.log({ id, userId })
+    return this.http.delete(`http://localhost:4000/siteDelete/${id}/${userId}`)
+  }
+
   // getting all the sites inside the dashboard component
   getSites() {
     const id = localStorage.getItem('id')
@@ -63,7 +71,6 @@ export class MongoDBService {
     const userId = localStorage.getItem('id')
     console.log({ id, userId, SitesId });
     return this.http.delete(`http://localhost:4000/siteDeletePassword/${id}/${userId}/${SitesId}`)
-
   }
 
 }

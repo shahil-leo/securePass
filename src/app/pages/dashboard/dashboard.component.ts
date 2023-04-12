@@ -14,7 +14,19 @@ export class DashboardComponent implements OnInit {
 
   siteArray!: any
 
+  deleteSite(id: String) {
+    const result = confirm("Are you sure want to delete remember if you delete the site the password stored in that sites will be deleted")
+    if (result) {
+      this.mongoService.deleteSite(id).subscribe({
+        next: (res) => { console.log(res) },
+        error: (e) => { console.log(e) },
+        complete: () => { location.reload() }
+      })
+    } else {
+      location.reload()
+    }
 
+  }
 
   ngOnInit(): void {
     this.mongoService.getSites().subscribe({

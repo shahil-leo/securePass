@@ -60,4 +60,25 @@ router.get('/siteObject/:id/:userId', async (req, res) => {
   if (!getFullDoc) return res.status(400).send("not found the object")
   res.status(200).send(sites)
 })
+// delete sites
+// router.get('/siteDelete/:id/:userId', aysnc(req, res) => {
+
+
+// })
+
+router.delete('/siteDelete/:id/:userId', async (req, res) => {
+  const id = req.params.id
+  const userId = req.params.userId
+  console.log({ id, userId })
+
+  const deleted = await userModel.updateOne(
+    { _id: new ObjectId(userId) },
+    { $pull: { sites: { _id: new ObjectId(id) } } }
+  )
+
+  if (!deleted) res.status(500).send("Not deleted")
+  res.status(200).send(deleted)
+
+})
+
 module.exports = router

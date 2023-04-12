@@ -257,7 +257,7 @@
                       Edit
                     </button>
                     <button
-                      [routerLink]="['/register-password', site._id, 'delete']"
+                      (click)="deleteSite(site._id)"
                       class="px-4 py-2 text-white bg-red-500 rounded-lg"
                     >
                       Delete
