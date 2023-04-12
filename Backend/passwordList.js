@@ -64,8 +64,6 @@ router.put('/siteUpdatePassword/:id/:userId/:sitesId', async (req, res) => {
     'sites.passwordList._id': new ObjectId(id)
   };
 
-
-
   const update = {
     $set: {
       'sites.$[site].passwordList.$[password]': updatedData
@@ -80,10 +78,7 @@ router.put('/siteUpdatePassword/:id/:userId/:sitesId', async (req, res) => {
   };
 
   const shahil = await userModel.updateOne(filter, update, options);
-  console.log(shahil)
   res.send(shahil)
-
-
 
   //   const updatedPassword = await userModel.updateOne(
   //     { _id: new ObjectId(userId) },
@@ -103,29 +98,24 @@ router.put('/siteUpdatePassword/:id/:userId/:sitesId', async (req, res) => {
   //   }
   //   res.send(updatedData)
   // })
+})
 
-  router.delete('siteDeletePassword/:id/:userId', async (req, res) => {
-    const filter = {
-      _id: new ObjectId(userId),
-      'sites._id': new ObjectId(sitesId)
-    };
+router.delete('/siteDeletePassword/:id/:userId/:sitesId', async (req, res) => {
 
-    const update = {
-      $pull: {
-        'sites.$[site].passwordList': { _id: new ObjectId(id) }
-      }
-    };
+  const userId = req.params.userId
+  const id = req.params.id
+  const sitesId = req.params.sitesId
 
-    const options = {
-      arrayFilters: [
-        { 'site._id': new ObjectId(sitesId) }
-      ]
-    };
+  console.log({ userId, id, sitesId })
 
-    const result = await userModel.updateOne(filter, update, options);
-    console.log(result);
-    res.send(result);
-  })
+  const filter = { _id: new ObjectId(userId), "sites._id": new ObjectId(sitesId) };
+  const update = { $pull: { "sites.$.passwordList": { _id: new ObjectId(id) } } };
+  const options = { new: true };
+
+  const result = await userModel.findOneAndUpdate(filter, update, options);
+  console.log(result);
+  res.send(result);
+
 })
 
 

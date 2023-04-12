@@ -92,6 +92,15 @@ export class RegisterPasswordComponent implements OnInit {
     this.ngPassword = decryptedPass
   }
 
+  deletePassword(id: string) {
+    this.mongoService.deletePasswordList(id, this.siteId).subscribe({
+      next: (res) => { console.log(res) },
+      error: (err) => { console.log(err) },
+      complete: () => { console.log('finished') }
+    })
+  }
+
+
   findInvalidControls() {
     const invalid = [];
     const controls = this.Form.controls;
@@ -103,12 +112,5 @@ export class RegisterPasswordComponent implements OnInit {
     return invalid;
   }
 
-  deletePassword(id: string) {
-    this.mongoService.deletePasswordList(id).subscribe({
-      next: (res) => { console.log(res) },
-      error: (err) => { console.log(err) },
-      complete: () => { console.log('finished') }
-    })
-  }
 
 }

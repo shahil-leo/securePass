@@ -53,10 +53,10 @@ export class MongoDBService {
   }
 
 
-  deletePasswordList(id: string) {
+  deletePasswordList(id: string, SitesId: string) {
     const userId = localStorage.getItem('id')
-    console.log({ id, userId });
-    return this.http.delete(`http://localhost:4000/siteDeletePassword/${id}/${userId}`)
+    console.log({ id, userId, SitesId });
+    return this.http.delete(`http://localhost:4000/siteDeletePassword/${id}/${userId}/${SitesId}`)
 
   }
 
