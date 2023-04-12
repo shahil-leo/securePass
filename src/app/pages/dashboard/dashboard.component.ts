@@ -13,6 +13,7 @@ export class DashboardComponent implements OnInit {
   ) { }
 
   siteArray!: any
+  isShow!: any
 
   deleteSite(id: String) {
     const result = confirm("Are you sure want to delete remember if you delete the site the password stored in that sites will be deleted")
@@ -26,6 +27,10 @@ export class DashboardComponent implements OnInit {
       location.reload()
     }
 
+  }
+
+  hideOff() {
+    this.isShow = !this.isShow
   }
 
   ngOnInit(): void {

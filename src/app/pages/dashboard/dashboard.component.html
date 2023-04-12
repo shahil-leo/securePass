@@ -160,7 +160,7 @@
     </div>
     <!-- end of side bar -->
     <div class="bg-[#eaeff9] lg:w w-full px-4 py-4 md:px-10 md:py-5 lg:px-20">
-      <div class="flex flex-col justify-between gap-5 md:flex-row">
+      <div class="flex flex-col justify-between gap-5 md:flex-row md:mt-7">
         <div class="flex flex-col gap-5 md:flex-row">
           <button
             class="shadow-md px-3 py-2 md:w-[43.75rem] text-base text-white rounded-md md:text-lg bg-secondary"
@@ -183,11 +183,12 @@
         </div>
       </div>
       <!-- the box -->
-      <!--the box section  -->
+      <!-- the box section  -->
       <div
+        [ngClass]="this.isShow ? 'hidden' : 'block'"
         class="container mx-auto mt-10 bg-white rounded-lg md:mt-20 max-w-screen-2xl"
       >
-        <div class="flex flex-row p-6 overflow-hidden rounded-md">
+        <div class="flex flex-row pt-4 overflow-hidden rounded-md">
           <div class="hidden md:flex items-center justify-center w-[30%]">
             <object
               width="300"
@@ -204,10 +205,16 @@
               keeps everything in sync.So you can stay organized and save time
             </h2>
             <div class="flex gap-3">
-              <button class="px-2 py-2 border-2 rounded-md border-primary">
+              <button
+                routerLink="/"
+                class="px-2 py-2 border-2 rounded-md border-primary"
+              >
                 Take short Tour
               </button>
-              <button class="px-3 py-4 border-2 rounded-md border-primary/25">
+              <button
+                (click)="hideOff()"
+                class="px-3 py-4 border-2 rounded-md border-primary/25"
+              >
                 May be latter
               </button>
             </div>
