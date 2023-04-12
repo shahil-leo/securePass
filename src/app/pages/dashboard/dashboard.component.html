@@ -228,7 +228,7 @@
                   alt="blog"
                   [src]="site.siteImgUrl"
                 />
-                <div class="p-6 text-white bg-primary">
+                <div class="p-6 text-black">
                   <h2
                     class="mb-1 text-xs font-medium tracking-widest text-white/70 title-font"
                   >
@@ -239,14 +239,14 @@
                   </h1>
                   <p class="mb-3 leading-relaxed">{{ site.siteUrl }}</p>
 
-                  <div class="flex flex-col gap-5 md:flex-row">
+                  <div class="flex flex-col gap-5 lg:flex-row">
                     <button
                       [routerLink]="[
                         '/register-password',
                         site._id,
                         'addPassword'
                       ]"
-                      class="px-4 py-2 text-black bg-white rounded-lg"
+                      class="px-4 py-2 text-white rounded-lg bg-primary"
                     >
                       Add Password
                     </button>

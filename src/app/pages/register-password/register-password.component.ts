@@ -21,6 +21,9 @@ export class RegisterPasswordComponent implements OnInit {
   Decrypted!: any
   formState: string = 'Add'
   passwordOneId!: string
+  StaticTemplate: string = "Add New "
+  PasswordSee: boolean = false
+
 
   // ngModel Section for edit
   ngEmail!: string
@@ -46,7 +49,6 @@ export class RegisterPasswordComponent implements OnInit {
 
   submit() {
     if (this.formState === 'Add') {
-      console.log(this.siteObject)
       this.mongoService.CreatePasswordList(this.siteId, this.Form.value).subscribe(
         {
           next: (res) => console.log(res),
@@ -57,9 +59,20 @@ export class RegisterPasswordComponent implements OnInit {
             this.Form.reset()
           }
         })
-      console.log(this.Form.value)
     } else if (this.formState === 'Edit') {
-      this.mongoService.updatePasswordList(this.passwordOneId, this.Form.value, this.siteId).subscribe({
+
+      const passwordHash = crypto.AES.encrypt(this.Form.value.password, 'haneena').toString()
+
+      console.log(this.Form.value)
+      const FormEncryptedData = {
+        email: this.Form.value.email,
+        username: this.Form.value.username,
+        passwordHint: this.Form.value.passwordHint,
+        password: passwordHash
+      }
+      console.log(FormEncryptedData)
+
+      this.mongoService.updatePasswordList(this.passwordOneId, FormEncryptedData, this.siteId).subscribe({
         next: (res) => { console.log(res) },
         error: (e) => { this.toaster.error(e[0].message) },
         complete: () => {
@@ -69,11 +82,9 @@ export class RegisterPasswordComponent implements OnInit {
         }
       })
     }
+    else if (this.StaticTemplate) {
 
-  }
-
-  get fc() {
-    return this.Form.controls
+    }
   }
 
   ngOnInit(): void {
@@ -93,20 +104,24 @@ export class RegisterPasswordComponent implements OnInit {
   decrypt(password: string) {
     const bytes = crypto.AES.decrypt(password, 'haneena');
     this.Decrypted = bytes.toString(crypto.enc.Utf8);
-    // alert(`Password is Securely Decrypted ${this.Decrypted}`)
+    if (!(this.formState === 'Edit')) {
+      alert(`Password is Securely Decrypted ${this.Decrypted}`)
+    }
     return this.Decrypted
   }
 
-  updateForm(list: any) {
-    const decryptedPass = this.decrypt(list.password)
-    this.passwordOneId = list._id
+  // this is the function we are calling when the user clicks the edit button
+  updateForm(singlePassword: any) {
     this.formState = 'Edit'
-    this.ngEmail = list.email
-    this.ngUserName = list.username
-    this.ngPasswordHint = list.passwordHint
+    this.StaticTemplate = "Edit"
+    const decryptedPass = this.decrypt(singlePassword.password)
+    this.passwordOneId = singlePassword._id
+    this.ngEmail = singlePassword.email
+    this.ngUserName = singlePassword.username
+    this.ngPasswordHint = singlePassword.passwordHint
     this.ngPassword = decryptedPass
   }
-
+  // this is the function that will work when the user clicks the delete button and the parameter is the id which comes from the object
   deletePassword(id: string) {
     this.mongoService.deletePasswordList(id, this.siteId).subscribe({
       next: (res) => { console.log(res) },
@@ -117,8 +132,13 @@ export class RegisterPasswordComponent implements OnInit {
       }
     })
   }
+  // when the user clicks the buttont
+  togglePasswordShow() {
+    this.PasswordSee = !this.PasswordSee
+    console.log(this.PasswordSee)
+  }
 
-
+  // testing which form control is not working using this
   findInvalidControls() {
     const invalid = [];
     const controls = this.Form.controls;
@@ -129,6 +149,14 @@ export class RegisterPasswordComponent implements OnInit {
     }
     return invalid;
   }
+
+  // getting all the data controllers
+  get fc() {
+    return this.Form.controls
+  }
+
+
+
 
 
 }
