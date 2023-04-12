@@ -3,6 +3,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { MongoDBService } from 'src/app/services/mongo-db.service';
 import * as crypto from 'crypto-js';
+import { ToastrService } from 'ngx-toastr';
+
 
 @Component({
   selector: 'app-register-password',
@@ -29,7 +31,8 @@ export class RegisterPasswordComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private mongoService: MongoDBService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private toaster: ToastrService
   ) {
 
     this.Form = fb.group({
@@ -45,13 +48,25 @@ export class RegisterPasswordComponent implements OnInit {
     if (this.formState === 'Add') {
       console.log(this.siteObject)
       this.mongoService.CreatePasswordList(this.siteId, this.Form.value).subscribe(
-        { next: (res) => console.log(res), error: (err) => { console.log(err) }, complete: () => { console.log('completed') } })
+        {
+          next: (res) => console.log(res),
+          error: (err) => { this.toaster.error(err[0].message) },
+          complete: () => {
+            this.toaster.success("Added the Password")
+            location.reload()
+            this.Form.reset()
+          }
+        })
       console.log(this.Form.value)
     } else if (this.formState === 'Edit') {
       this.mongoService.updatePasswordList(this.passwordOneId, this.Form.value, this.siteId).subscribe({
         next: (res) => { console.log(res) },
-        error: (e) => { console.log(e) },
-        complete: () => { console.log('suiiii updated') }
+        error: (e) => { this.toaster.error(e[0].message) },
+        complete: () => {
+          this.toaster.success("Updated the Password")
+          location.reload()
+          this.Form.reset()
+        }
       })
     }
 
@@ -95,8 +110,11 @@ export class RegisterPasswordComponent implements OnInit {
   deletePassword(id: string) {
     this.mongoService.deletePasswordList(id, this.siteId).subscribe({
       next: (res) => { console.log(res) },
-      error: (err) => { console.log(err) },
-      complete: () => { console.log('finished') }
+      error: (err) => { this.toaster.error(err[0].message) },
+      complete: () => {
+        this.toaster.success("Deleted successFully")
+        location.reload()
+      }
     })
   }
 
