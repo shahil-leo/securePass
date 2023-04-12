@@ -32,7 +32,7 @@ export class RegisterSiteComponent {
   submit() {
     this.mongoService.addSites(this.Form.value).subscribe(
       {
-        next: (res) => { this.toaster.success("Site successfully added"), console.log(res) },
+        next: (res) => { this.toaster.success("Site successfully added") },
         error: (e) => this.toaster.error(e.error),
         complete: () => { this.router.navigate(['/dashboard']) }
       },

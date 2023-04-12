@@ -12,64 +12,64 @@ export class MongoDBService {
     private http: HttpClient
   ) { }
 
+  //? this is the method which we get the local storage id then we get which user is logged in
+  localStorage() {
+    return localStorage.getItem('id')
+  }
 
+  // ******************************************user login register**************************/
   addUser(api: string, data: register): Observable<any> {
     return this.http.post(api, data)
   }
   loginUser(api: string, data: login) {
     return this.http.post(api, data)
   }
-
-  // adding one site
-  addSites(data: any): Observable<any> {
-    console.log(data);
+  //***************************************************sites **************************** */
+  // ? getting all the sites inside the dashboard component
+  getSites() {
     const id = localStorage.getItem('id')
-    console.log(id)
+    return this.http.get(`http://localhost:4000/siteList/${id}`)
+  }
+
+  //? adding one site
+  addSites(data: any): Observable<any> {
+    const id = this.localStorage()
     return this.http.put(`http://localhost:4000/add/${id}`, { sites: data })
   }
 
   updateSites(sitesId: String, data: any) {
-    const id = localStorage.getItem('id')
-    console.log({ id, sitesId, data })
+    const id = this.localStorage()
     return this.http.put(`http://localhost:4000/updateSites/${sitesId}/${id}`, data)
   }
-
-  // delete sites
+  // ?delete sites
 
   deleteSite(id: String) {
-    const userId = localStorage.getItem('id')
-    console.log({ id, userId })
+    const userId = this.localStorage()
     return this.http.delete(`http://localhost:4000/siteDelete/${id}/${userId}`)
   }
 
-  // getting all the sites inside the dashboard component
-  getSites() {
-    const id = localStorage.getItem('id')
-    console.log(`This is the id that the userId logged in ${id}`);
-    return this.http.get(`http://localhost:4000/siteList/${id}`)
-  }
-  // getting only one siteObject using the id
+  // ? getting only one siteObject using the id
   getObject(id: string) {
-    const userId = localStorage.getItem('id')
+    const userId = this.localStorage()
     return this.http.get(`http://localhost:4000/siteObject/${id}/${userId}`)
   }
 
+  // *********************************passwordList **************************************/
+  // ?creating password list inside the passwordList array and each password is a object
   CreatePasswordList(id: string, data: object) {
-    const userId = localStorage.getItem('id')
-    console.log({ id, userId })
+    const userId = this.localStorage()
     return this.http.put(`http://localhost:4000/sitePasswordCreate/${id}/${userId}`, data)
   }
 
+  //? updating each of the password
   updatePasswordList(id: string, data: object, SitesId: string) {
-    const userId = localStorage.getItem('id')
-    console.log({ id, userId, SitesId })
+    const userId = this.localStorage()
     return this.http.put(`http://localhost:4000/siteUpdatePassword/${id}/${userId}/${SitesId}`, data)
   }
 
-
+  //? deleting each of the password list stored inside the passwordList
   deletePasswordList(id: string, SitesId: string) {
-    const userId = localStorage.getItem('id')
-    console.log({ id, userId, SitesId });
+    const userId = this.localStorage()
     return this.http.delete(`http://localhost:4000/siteDeletePassword/${id}/${userId}/${SitesId}`)
   }
 
