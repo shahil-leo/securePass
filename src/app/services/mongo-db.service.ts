@@ -28,6 +28,12 @@ export class MongoDBService {
     return this.http.put(`http://localhost:4000/add/${id}`, { sites: data })
   }
 
+  updateSites(sitesId: String, data: any) {
+    const id = localStorage.getItem('id')
+    console.log({ id, sitesId, data })
+    return this.http.put(`http://localhost:4000/updateSites/${sitesId}/${id}`, data)
+  }
+
   // getting all the sites inside the dashboard component
   getSites() {
     const id = localStorage.getItem('id')

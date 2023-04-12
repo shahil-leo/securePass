@@ -3,7 +3,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, NgControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { throwError } from 'rxjs';
 import { MongoDBService } from 'src/app/services/mongo-db.service';
 
 @Component({
