@@ -5,7 +5,22 @@ const UserSchema = mongoose.Schema({
   lastName: String,
   email: String,
   password: String,
-  sites: []
+  sites: [
+    {
+      siteName: String,
+      siteUrl: String,
+      siteImgUrl: String,
+      Category: String,
+      passwordList: [
+        {
+          email: String,
+          username: String,
+          passwordHint: String,
+          password: String
+        }
+      ]
+    }
+  ]
 
 })
 

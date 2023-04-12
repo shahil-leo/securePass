@@ -243,7 +243,7 @@
                     <button
                       [routerLink]="[
                         '/register-password',
-                        site.id,
+                        site._id,
                         'addPassword'
                       ]"
                       class="px-4 py-2 text-black bg-white rounded-lg"
@@ -252,12 +252,12 @@
                     </button>
                     <button
                       class="px-4 py-2 text-white bg-yellow-300 rounded-lg"
-                      [routerLink]="['/register-password', site.id, 'edit']"
+                      [routerLink]="['/register-password', site._id, 'edit']"
                     >
                       Edit
                     </button>
                     <button
-                      [routerLink]="['/register-password', site.id, 'delete']"
+                      [routerLink]="['/register-password', site._id, 'delete']"
                       class="px-4 py-2 text-white bg-red-500 rounded-lg"
                     >
                       Delete

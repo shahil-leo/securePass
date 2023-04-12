@@ -6,7 +6,6 @@ var CryptoJS = require("crypto-js");
 const dotenv = require('dotenv')
 dotenv.config()
 const secretKey = process.env.secret_crypto
-const uuid = require('uuid')
 
 
 // adding passwords to the sites
@@ -16,7 +15,7 @@ router.put('/sitePasswordCreate/:id/:userId', async (req, res) => {
 
 
   const form = {
-    id: uuid.v4(),
+
     email: req.body.email,
     username: req.body.username,
     passwordHint: req.body.passwordHint,
@@ -27,10 +26,9 @@ router.put('/sitePasswordCreate/:id/:userId', async (req, res) => {
   const userId = req.params.userId
 
   const updatedUser = await userModel.updateOne(
-    { _id: new ObjectId(userId), "sites.id": objId },
+    { _id: new ObjectId(userId), 'sites._id': new ObjectId(objId) },
     { $push: { "sites.$.passwordList": form } }
   );
-
   if (!updatedUser) res.send("there is no data")
   res.status(200).send(updatedUser)
 
@@ -42,45 +40,94 @@ router.put('/siteUpdatePassword/:id/:userId/:sitesId', async (req, res) => {
   const id = req.params.id
   const sitesId = req.params.sitesId
 
-  const findUser = await userModel.find(
-    { _id: new ObjectId(userId), "sites.id": sitesId, "passwordList.id": id }
-  )
-  res.send(findUser)
-  console.log(findUser)
-
-  // const updatedPassword = await userModel.updateOne(
-  //   { _id: new ObjectId(userId), "passwordList.id": id },
-  //   {
-  //     $addToSet: {
-  //       "passwordList.$.email": updatedData.email,
-  //       "passwordList.$.username": updatedData.username,
-  //       "passwordList.$.passwordHint": updatedData.passwordHint,
-  //       "passwordList.$.password": updatedData.password
-  //     }
+  // const findUser = await userModel.findOne({ _id: new ObjectId(userId) })
+  // let site;
+  // let singlePass;
+  // for (let i = 0; i < findUser.sites.length; i++) {
+  //   if (findUser.sites[i]._id.toString() === sitesId) {
+  //     site = findUser.sites[i];
+  //     break;
   //   }
-  // );
-  // console.log(updatedPassword)
-  // if (!updatedPassword.acknowledged) {
-  //   res.status(500).send("Not updated")
-  //   return
   // }
-  // res.send(updatedData)
+  // for (let index = 0; index < site.passwordList.length; index++) {
+  //   if (site.passwordList[index]._id.toString() === id) {
+  //     singlePass = site.passwordList[index]
+  //     console.log(singlePass)
+  //   }
+  // }
+  // return res.send(singlePass)
+
+
+  const filter = {
+    _id: new ObjectId(userId),
+    'sites._id': new ObjectId(sitesId),
+    'sites.passwordList._id': new ObjectId(id)
+  };
+
+
+
+  const update = {
+    $set: {
+      'sites.$[site].passwordList.$[password]': updatedData
+    }
+  };
+
+  const options = {
+    arrayFilters: [
+      { 'site._id': new ObjectId(sitesId) },
+      { 'password._id': new ObjectId(id) }
+    ]
+  };
+
+  const shahil = await userModel.updateOne(filter, update, options);
+  console.log(shahil)
+  res.send(shahil)
+
+
+
+  //   const updatedPassword = await userModel.updateOne(
+  //     { _id: new ObjectId(userId) },
+  //     {
+  //       $addToSet: {
+  //         "passwordList.$.email": updatedData.email,
+  //         "passwordList.$.username": updatedData.username,
+  //         "passwordList.$.passwordHint": updatedData.passwordHint,
+  //         "passwordList.$.password": updatedData.password
+  //       }
+  //     }
+  //   );
+  //   console.log(updatedPassword)
+  //   if (!updatedPassword.acknowledged) {
+  //     res.status(500).send("Not updated")
+  //     return
+  //   }
+  //   res.send(updatedData)
+  // })
+
+  router.delete('siteDeletePassword/:id/:userId', async (req, res) => {
+    const filter = {
+      _id: new ObjectId(userId),
+      'sites._id': new ObjectId(sitesId)
+    };
+
+    const update = {
+      $pull: {
+        'sites.$[site].passwordList': { _id: new ObjectId(id) }
+      }
+    };
+
+    const options = {
+      arrayFilters: [
+        { 'site._id': new ObjectId(sitesId) }
+      ]
+    };
+
+    const result = await userModel.updateOne(filter, update, options);
+    console.log(result);
+    res.send(result);
+  })
 })
 
-router.delete('siteDeletePassword/:id/:userId', async (req, res) => {
-  const userId = req.params.userId
-  const id = req.params.id
-  console.log(id)
-  const deletedPass = userModel.updateOne(
-    { _id: new ObjectId(userId) },
-    { $pull: { passwordList: { id: id } } }
-  )
-  if (!deletedPass) {
-    res.status(500).send("Not deleted")
-    return
-  }
-  res.send(deletedPass)
-})
 
 
 module.exports = router

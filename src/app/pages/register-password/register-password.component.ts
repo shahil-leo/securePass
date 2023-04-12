@@ -43,8 +43,8 @@ export class RegisterPasswordComponent implements OnInit {
 
   submit() {
     if (this.formState === 'Add') {
-
-      this.mongoService.CreatePasswordList(this.siteObject.id, this.Form.value).subscribe(
+      console.log(this.siteObject)
+      this.mongoService.CreatePasswordList(this.siteId, this.Form.value).subscribe(
         { next: (res) => console.log(res), error: (err) => { console.log(err) }, complete: () => { console.log('completed') } })
       console.log(this.Form.value)
     } else if (this.formState === 'Edit') {
@@ -66,7 +66,8 @@ export class RegisterPasswordComponent implements OnInit {
       this.siteId = params['id']
       this.siteType = params['data']
     })
-
+    //getting the sites that we created earlier to show the user which site you are adding details
+    console.log(this.siteId)
     this.siteObject = this.mongoService.getObject(this.siteId).subscribe({
       next: (res) => { this.siteObject = res, this.passwordList = this.siteObject.passwordList },
       error: (err) => { console.log(err), console.log(this.siteObject) },
@@ -83,7 +84,7 @@ export class RegisterPasswordComponent implements OnInit {
 
   updateForm(list: any) {
     const decryptedPass = this.decrypt(list.password)
-    this.passwordOneId = list.id
+    this.passwordOneId = list._id
     this.formState = 'Edit'
     this.ngEmail = list.email
     this.ngUserName = list.username

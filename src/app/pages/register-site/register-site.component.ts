@@ -3,7 +3,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { MongoDBService } from 'src/app/services/mongo-db.service';
-import * as uuid from 'uuid';
 @Component({
   selector: 'app-register-site',
   templateUrl: './register-site.component.html',
@@ -19,13 +18,7 @@ export class RegisterSiteComponent {
     private toaster: ToastrService,
     private router: Router,
   ) {
-
-    const uniquePass = uuid.v4()
-    console.log(uniquePass);
-
-
     this.Form = fb.group({
-      id: [uniquePass],
       siteName: ['', [Validators.required, Validators.minLength(2)]],
       siteUrl: ['', [Validators.required, Validators.minLength(4)]],
       siteImgUrl: ['', [Validators.required, Validators.minLength(4)]],
