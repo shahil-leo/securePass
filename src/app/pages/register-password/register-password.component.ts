@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { MongoDBService } from 'src/app/services/mongo-db.service';
 import * as crypto from 'crypto-js';
 import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -19,11 +20,12 @@ export class RegisterPasswordComponent implements OnInit {
   siteObject!: any
   passwordList!: any
   Decrypted!: any
+  siteSingleObject: any
   formState: string = 'Add'
   passwordOneId!: string
   StaticTemplate: string = "Add New "
   PasswordSee: boolean = false
-
+  ShowPasswordList: boolean = false
 
   // ngModel Section for edit
   ngEmail!: string
@@ -35,30 +37,51 @@ export class RegisterPasswordComponent implements OnInit {
     private route: ActivatedRoute,
     private mongoService: MongoDBService,
     private fb: FormBuilder,
-    private toaster: ToastrService
+    private toaster: ToastrService,
+    private Router: Router
   ) {
 
     this.Form = fb.group({
-      email: ['', [Validators.required, Validators.pattern("^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$")]],
-      username: ['', [Validators.required, Validators.minLength(2)]],
+      email: ['', Validators.required],
+      username: ['', Validators.required],
       passwordHint: ['', Validators.required],
-      password: ['', [Validators.required]],
+      password: ['', Validators.required],
     })
 
   }
 
   submit() {
     if (this.formState === 'Add') {
-      this.mongoService.CreatePasswordList(this.siteId, this.Form.value).subscribe(
-        {
-          next: (res) => console.log(res),
-          error: (err) => { this.toaster.error(err[0].message) },
+      if (this.siteType === "edit") {
+        const data = {
+          _id: this.siteId,
+          siteName: this.Form.value.email,
+          siteUrl: this.Form.value.username,
+          siteImgUrl: this.Form.value.passwordHint,
+          Category: this.Form.value.password,
+          passwordList: this.passwordList
+        }
+        this.mongoService.updateSites(this.siteId, data).subscribe({
+          next: (res) => { res },
+          error: (e) => { console.log(e) },
           complete: () => {
             this.toaster.success("Added the Password")
-            location.reload()
-            this.Form.reset()
+            this.Router.navigate(['/dashboard'])
           }
         })
+      } else {
+        this.mongoService.CreatePasswordList(this.siteId, this.Form.value).subscribe(
+          {
+            next: (res) => console.log(res),
+            error: (err) => { this.toaster.error(err[0].message) },
+            complete: () => {
+              this.toaster.success("Added the Password")
+              location.reload()
+              this.Form.reset()
+            }
+          })
+      }
+
     } else if (this.formState === 'Edit') {
 
       const passwordHash = crypto.AES.encrypt(this.Form.value.password, 'haneena').toString()
@@ -82,9 +105,7 @@ export class RegisterPasswordComponent implements OnInit {
         }
       })
     }
-    else if (this.StaticTemplate) {
 
-    }
   }
 
   ngOnInit(): void {
@@ -94,6 +115,20 @@ export class RegisterPasswordComponent implements OnInit {
     })
     //getting the sites that we created earlier to show the user which site you are adding details
     console.log(this.siteId)
+    if (this.siteType === "edit") {
+      this.ShowPasswordList = true
+      this.mongoService.getObject(this.siteId).subscribe({
+        next: (res) => { this.siteSingleObject = res },
+        error: (e) => { console.log(e) },
+        complete: () => {
+          this.ngEmail = this.siteSingleObject.siteName,
+            this.ngUserName = this.siteSingleObject.siteUrl,
+            this.ngPasswordHint = this.siteSingleObject.siteImgUrl,
+            this.ngPassword = this.siteSingleObject.Category
+        }
+      })
+    }
+
     this.siteObject = this.mongoService.getObject(this.siteId).subscribe({
       next: (res) => { this.siteObject = res, this.passwordList = this.siteObject.passwordList },
       error: (err) => { console.log(err), console.log(this.siteObject) },
@@ -154,7 +189,6 @@ export class RegisterPasswordComponent implements OnInit {
   get fc() {
     return this.Form.controls
   }
-
 
 
 
