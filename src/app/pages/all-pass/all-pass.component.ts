@@ -1,3 +1,4 @@
+import { Sites, fullResAllPass } from './../../models/interface';
 import { Component, OnInit } from '@angular/core';
 import { MongoDBService } from 'src/app/services/mongo-db.service';
 import * as crypto from 'crypto-js';
@@ -11,10 +12,8 @@ import { ToastrService } from 'ngx-toastr';
 export class AllPassComponent implements OnInit {
 
   allPass!: any
-  passwordList!: Object
-  fullPasswordList: any[] = []
-  onePasswordList: any[] = []
-  singlePass!: any
+  passwordList!: Sites
+  fullPasswordList: Sites[] = []
   DecryptedPassword!: string
   constructor(
     private mongoService: MongoDBService,
@@ -29,7 +28,7 @@ export class AllPassComponent implements OnInit {
         },
         error: (e) => { console.log(e) },
         complete: () => {
-          this.allPass.map((val: any) => {
+          this.allPass.map((val: fullResAllPass) => {
             this.passwordList = val.passwordList,
               this.fullPasswordList.push(this.passwordList)
           })
@@ -50,9 +49,12 @@ export class AllPassComponent implements OnInit {
       console.log({ userId, sitesId, id })
       this.mongoService.deletePasswordList(id, sitesId).subscribe(
         {
-          next: (res) => { console.log(res) },
+          next: (res) => { },
           error: (e) => { console.log(e) },
-          complete: () => { this.toastr.success("successfully deleted "), location.reload() }
+          complete: () => {
+            this.toastr.success("successfully deleted "),
+              location.reload()
+          }
         }
       )
     } else {

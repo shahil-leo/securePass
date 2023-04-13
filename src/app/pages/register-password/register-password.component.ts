@@ -5,6 +5,7 @@ import { MongoDBService } from 'src/app/services/mongo-db.service';
 import * as crypto from 'crypto-js';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
+import { PasswordList, Sites, fullResAllPass } from 'src/app/models/interface';
 
 
 @Component({
@@ -18,8 +19,8 @@ export class RegisterPasswordComponent implements OnInit {
   siteType!: string
   Form!: FormGroup
   siteObject!: any
-  passwordList!: any
-  Decrypted!: any
+  passwordList!: PasswordList[]
+  Decrypted!: string
   siteSingleObject: any
   formState: string = 'Add'
   passwordOneId!: string
@@ -32,8 +33,8 @@ export class RegisterPasswordComponent implements OnInit {
   ngPasswordHint!: string
   ngPassword!: string
   // the all pass updating password from other component
-  updatePassFromAllPass!: any
-  singleData!: any
+  updatePassFromAllPass!: fullResAllPass
+  singleData!: PasswordList
 
   constructor(
     private route: ActivatedRoute,
@@ -125,7 +126,7 @@ export class RegisterPasswordComponent implements OnInit {
     if (this.siteType === "edit") {
       this.ShowPasswordList = true
       this.mongoService.getObject(this.siteId).subscribe({
-        next: (res) => { this.siteSingleObject = res },
+        next: (res) => { console.log(res), this.siteSingleObject = res },
         error: (e) => { console.log(e) },
         complete: () => {
           this.ngEmail = this.siteSingleObject.siteName,
@@ -142,6 +143,7 @@ export class RegisterPasswordComponent implements OnInit {
       console.log({ allPassData, allPassDataId })
       const passwordList = allPassData.passwordList
       passwordList.map((val: any) => { if (val._id === allPassDataId) this.singleData = val })
+      console.log(this.singleData)
       this.passwordOneId = allPassDataId
       this.siteId = allPassData._id
       this.updateForm(this.singleData)
@@ -150,7 +152,7 @@ export class RegisterPasswordComponent implements OnInit {
     this.siteObject = this.mongoService.getObject(this.siteId).subscribe({
       next: (res) => { this.siteObject = res, this.passwordList = this.siteObject.passwordList },
       error: (err) => { console.log(err), console.log(this.siteObject) },
-      complete: () => { console.log(this.passwordList) }
+      complete: () => { console.log(this.siteObject) }
     })
   }
 
@@ -179,14 +181,20 @@ export class RegisterPasswordComponent implements OnInit {
 
   // this is the function that will work when the user clicks the delete button and the parameter is the id which comes from the object
   deletePassword(id: string) {
-    this.mongoService.deletePasswordList(id, this.siteId).subscribe({
-      next: (res) => { console.log(res) },
-      error: (err) => { this.toaster.error(err[0].message) },
-      complete: () => {
-        this.toaster.success("Deleted successFully")
-        location.reload()
-      }
-    })
+    const isTrue = confirm("Are you sure you will lose the data")
+    if (isTrue) {
+      this.mongoService.deletePasswordList(id, this.siteId).subscribe({
+        next: (res) => { console.log(res) },
+        error: (err) => { this.toaster.error(err[0].message) },
+        complete: () => {
+          this.toaster.success("Deleted successFully")
+          location.reload()
+        }
+      })
+    } else {
+      console.log('suii')
+    }
+
   }
   // when the user clicks the buttont
   togglePasswordShow() {
