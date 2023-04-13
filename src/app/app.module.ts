@@ -21,6 +21,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { RegisterSiteComponent } from './pages/register-site/register-site.component';
 import { RegisterPasswordComponent } from './pages/register-password/register-password.component';
+import { AllPassComponent } from './pages/all-pass/all-pass.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { RegisterPasswordComponent } from './pages/register-password/register-pa
     DashboardComponent,
     RegisterSiteComponent,
     RegisterPasswordComponent,
+    AllPassComponent,
 
   ],
   imports: [

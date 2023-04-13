@@ -8,6 +8,7 @@ app.use(cors())
 const userCreate = require('./createUser')
 const siteList = require('./siteList')
 const passwordList = require('./passwordList')
+const allPass = require('./allPass')
 
 const dotenv = require('dotenv')
 dotenv.config()
@@ -29,6 +30,7 @@ mongoose.connect(mongoUrl).then(() => {
 app.use('/', userCreate)
 app.use('/', siteList)
 app.use('/', passwordList)
+app.use('/', allPass)
 
 
 // structure of mongoDB database

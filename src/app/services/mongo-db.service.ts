@@ -73,4 +73,10 @@ export class MongoDBService {
     return this.http.delete(`http://localhost:4000/siteDeletePassword/${id}/${userId}/${SitesId}`)
   }
 
+  // ************************************** all pas ************************************/
+  getAllPass() {
+    const userId = this.localStorage()
+    return this.http.get(`http://localhost:4000/allPass/${userId}`)
+  }
+
 }
