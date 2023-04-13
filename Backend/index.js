@@ -9,6 +9,7 @@ const userCreate = require('./createUser')
 const siteList = require('./siteList')
 const passwordList = require('./passwordList')
 const allPass = require('./allPass')
+const note = require('./note')
 
 const dotenv = require('dotenv')
 dotenv.config()
@@ -31,6 +32,7 @@ app.use('/', userCreate)
 app.use('/', siteList)
 app.use('/', passwordList)
 app.use('/', allPass)
+app.use('/', note)
 
 
 // structure of mongoDB database

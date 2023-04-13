@@ -47,7 +47,6 @@ router.put('/updateSites/:sitesId/:userId', async (req, res) => {
   const sitesId = req.params.sitesId
   const userId = req.params.userId
   const data = req.body
-  console.log({ sitesId, userId, data })
   const updating = await userModel.updateOne(
     { _id: new ObjectId(userId), "sites._id": new ObjectId(sitesId) },
     {
@@ -89,7 +88,6 @@ router.delete('/siteDelete/:id/:userId', async (req, res) => {
   if (error) return res.status(500).send(error[0].message)
   const id = req.params.id
   const userId = req.params.userId
-  console.log({ id, userId })
 
   const deleted = await userModel.updateOne(
     { _id: new ObjectId(userId) },

@@ -22,6 +22,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { RegisterSiteComponent } from './pages/register-site/register-site.component';
 import { RegisterPasswordComponent } from './pages/register-password/register-password.component';
 import { AllPassComponent } from './pages/all-pass/all-pass.component';
+import { NotesComponent } from './pages/notes/notes.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import { AllPassComponent } from './pages/all-pass/all-pass.component';
     RegisterSiteComponent,
     RegisterPasswordComponent,
     AllPassComponent,
+    NotesComponent,
 
   ],
   imports: [
