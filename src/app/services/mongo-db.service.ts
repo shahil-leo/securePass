@@ -12,6 +12,9 @@ export class MongoDBService {
     private http: HttpClient
   ) { }
 
+  DataAllPass: any
+  DataAllPassId!: string
+
   //? this is the method which we get the local storage id then we get which user is logged in
   localStorage() {
     return localStorage.getItem('id')
@@ -78,5 +81,7 @@ export class MongoDBService {
     const userId = this.localStorage()
     return this.http.get(`http://localhost:4000/allPass/${userId}`)
   }
+
+
 
 }

@@ -26,12 +26,14 @@ export class RegisterPasswordComponent implements OnInit {
   StaticTemplate: string = "Add New "
   PasswordSee: boolean = false
   ShowPasswordList: boolean = false
-
   // ngModel Section for edit
   ngEmail!: string
   ngUserName!: string
   ngPasswordHint!: string
   ngPassword!: string
+  // the all pass updating password from other component
+  updatePassFromAllPass!: any
+  singleData!: any
 
   constructor(
     private route: ActivatedRoute,
@@ -100,8 +102,13 @@ export class RegisterPasswordComponent implements OnInit {
         error: (e) => { this.toaster.error(e[0].message) },
         complete: () => {
           this.toaster.success("Updated the Password")
-          location.reload()
-          this.Form.reset()
+          if (this.siteType === 'all-pass-edit') {
+            this.Router.navigate(['/all-pass'])
+          } else {
+            this.Form.reset()
+            location.reload()
+          }
+
         }
       })
     }
@@ -114,7 +121,7 @@ export class RegisterPasswordComponent implements OnInit {
       this.siteType = params['data']
     })
     //getting the sites that we created earlier to show the user which site you are adding details
-    console.log(this.siteId)
+
     if (this.siteType === "edit") {
       this.ShowPasswordList = true
       this.mongoService.getObject(this.siteId).subscribe({
@@ -127,6 +134,17 @@ export class RegisterPasswordComponent implements OnInit {
             this.ngPassword = this.siteSingleObject.Category
         }
       })
+    } else if (this.siteType === 'all-pass-edit') {
+      this.formState = 'Edit'
+      this.StaticTemplate = "Edit"
+      const allPassData = this.mongoService.DataAllPass
+      const allPassDataId = this.mongoService.DataAllPassId
+      console.log({ allPassData, allPassDataId })
+      const passwordList = allPassData.passwordList
+      passwordList.map((val: any) => { if (val._id === allPassDataId) this.singleData = val })
+      this.passwordOneId = allPassDataId
+      this.siteId = allPassData._id
+      this.updateForm(this.singleData)
     }
 
     this.siteObject = this.mongoService.getObject(this.siteId).subscribe({
@@ -156,6 +174,9 @@ export class RegisterPasswordComponent implements OnInit {
     this.ngPasswordHint = singlePassword.passwordHint
     this.ngPassword = decryptedPass
   }
+
+
+
   // this is the function that will work when the user clicks the delete button and the parameter is the id which comes from the object
   deletePassword(id: string) {
     this.mongoService.deletePasswordList(id, this.siteId).subscribe({

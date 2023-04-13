@@ -61,4 +61,10 @@ export class AllPassComponent implements OnInit {
 
   }
 
+  passDataService(item: any, id: string) {
+
+    this.mongoService.DataAllPass = item
+    this.mongoService.DataAllPassId = id
+  }
+
 }
