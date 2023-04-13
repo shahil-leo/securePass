@@ -7,7 +7,7 @@ const userModel = require('./userModel')
 router.get('/allPass/:id', async (req, res) => {
   const id = req.params.id
   const passwordList = await userModel.aggregate([
-    { $project: { _id: new ObjectId(id), sitePasswordList: "$sites.passwordList" } },
+    { $project: { _id: new ObjectId(id), sitePasswordList: "$sites" } },
     { $unwind: "$sitePasswordList" },
     { $project: { passwordList: "$sitePasswordList" } }
   ]);
