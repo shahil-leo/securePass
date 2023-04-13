@@ -82,14 +82,12 @@ router.delete('/siteDeletePassword/:id/:userId/:sitesId', async (req, res) => {
   const id = req.params.id
   const sitesId = req.params.sitesId
 
-  console.log({ userId, id, sitesId })
 
   const filter = { _id: new ObjectId(userId), "sites._id": new ObjectId(sitesId) };
   const update = { $pull: { "sites.$.passwordList": { _id: new ObjectId(id) } } };
   const options = { new: true };
 
   const result = await userModel.findOneAndUpdate(filter, update, options);
-  console.log(result);
   res.send(result);
 
 })
