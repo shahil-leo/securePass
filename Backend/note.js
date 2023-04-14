@@ -27,6 +27,38 @@ router.get('/note-get/:id', async (req, res) => {
   res.status(200).send(getNotes)
 })
 
+router.put('/note-update/:userId/:id', async (req, res) => {
+  const { error } = req.body
+  if (error) return res.status(500).send(error[0].message)
+  const id = req.params.id
+  const userId = req.params.userId
+  const data = req.body
+  const updateNotes = await userModel.updateOne(
+    { _id: new ObjectId(userId), "note._id": new ObjectId(id) },
+    {
+      $set: {
+        "note.$.heading": data.heading,
+        "note.$.sideHeading": data.sideHeading,
+        "note.$.paragraph": data.paragraph
+      }
+    }
+  )
+  if (!updateNotes) return res.status(500).send("No notes")
+  res.status(200).send(updateNotes)
+})
+
+router.delete('/note-delete/:userId/:id', async (req, res) => {
+  const id = req.params.id
+  const userId = req.params.userId
+
+  const deleteNote = await userModel.updateOne(
+    { _id: new ObjectId(userId) },
+    { $pull: { note: { _id: new ObjectId(id) } } }
+  )
+  if (!deleteNote) return res.status(500).send("not deleted")
+  res.status(200).send(deleteNote)
+})
+
 
 
 

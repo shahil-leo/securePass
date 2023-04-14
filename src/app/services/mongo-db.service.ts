@@ -27,6 +27,13 @@ export class MongoDBService {
   loginUser(api: string, data: login) {
     return this.http.post(api, data)
   }
+
+  DetailsAboutUser() {
+    const id = this.localStorage()
+    return this.http.get(`http://localhost:4000/user-details/${id}`)
+
+  }
+
   //***************************************************sites **************************** */
   // ? getting all the sites inside the dashboard component
   getSites() {
@@ -92,6 +99,15 @@ export class MongoDBService {
   getNotes() {
     const userId = this.localStorage()
     return this.http.get(`http://localhost:4000/note-get/${userId}`)
+  }
+
+  updateNotes(id: string, updatedData: any) {
+    const userId = this.localStorage()
+    return this.http.put(`http://localhost:4000/note-update/${userId}/${id}`, updatedData)
+  }
+  DeleteNotes(id: string) {
+    const userId = this.localStorage()
+    return this.http.delete(`http://localhost:4000/note-delete/${userId}/${id}`)
   }
 
 }

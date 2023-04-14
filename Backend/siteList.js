@@ -94,7 +94,7 @@ router.delete('/siteDelete/:id/:userId', async (req, res) => {
     { $pull: { sites: { _id: new ObjectId(id) } } }
   )
 
-  if (!deleted) res.status(500).send("Not deleted")
+  if (!deleted) return res.status(500).send("Not deleted")
   res.status(200).send(deleted)
 
 })

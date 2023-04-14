@@ -1,6 +1,8 @@
 const router = require('express').Router()
 const userModel = require('./userModel')
 const bcrypt = require('bcrypt')
+const { ObjectId } = require('mongodb');
+
 
 router.post('/register', async (req, res) => {
 
@@ -43,6 +45,15 @@ router.post('/login', async (req, res) => {
 
 })
 
+router.get('/user-details/:id', async (req, res) => {
+  const id = req.params.id
+  const { error } = req.body
+  if (error) return res.status(500).send(error[0].message)
+
+  const userDetail = await userModel.findOne({ _id: new ObjectId(id) })
+  if (!userDetail) return res.status(500).send("not matched")
+  res.status(200).send(userDetail)
+})
 
 module.exports = router
 

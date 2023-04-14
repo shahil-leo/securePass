@@ -14,6 +14,7 @@ export class DashboardComponent implements OnInit {
 
   siteArray!: any
   isShow!: any
+  fullUser!: any
 
   // ? this is a method in dashboard to delete the site inside that component
   deleteSite(id: String) {
@@ -36,9 +37,13 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {
     this.mongoService.getSites().subscribe({
-      next: (res: any) => { this.siteArray = res.sites },
+      next: (res: any) => { console.log(res), this.siteArray = res.sites },
       error: (err) => { console.log(err) },
       complete: () => console.log(this.siteArray)
+    })
+    this.mongoService.DetailsAboutUser().subscribe((val) => {
+      this.fullUser = val
+      console.log(this.fullUser)
     })
   }
 

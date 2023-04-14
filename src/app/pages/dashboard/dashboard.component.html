@@ -36,11 +36,11 @@
             alt="Avatar "
             class="w-10 mx-auto rounded-full md:mt-20 md:w-16"
           />
-          <div>
+          <div *ngIf="this.fullUser">
             <h2
               class="max-w-xs mb-20 text-xs font-medium text-center text-primarbg-primary md:text-sm"
             >
-              Shahil
+              {{ this.fullUser.firstName }}
             </h2>
           </div>
         </div>
@@ -157,19 +157,15 @@
             Add New site
           </button>
         </div>
-        <div>
-          <input
-            placeholder="Search you site here"
-            type="text "
-            class="hidden w-full p-2 bg-white border rounded-md shadow-md outline-none md:max-w-screen-sm md:block"
-          />
+        <div *ngIf="this.fullUser">
+          <h2>{{ this.fullUser.email }}</h2>
         </div>
       </div>
       <!-- the box -->
       <!-- the box section  -->
       <div
         [ngClass]="this.isShow ? 'hidden' : 'block'"
-        class="container mx-auto mt-10 bg-white rounded-lg md:mt-20 max-w-screen-2xl"
+        class="container hidden mx-auto mt-10 bg-white rounded-lg md:block md:mt-20 max-w-screen-2xl"
       >
         <div class="flex flex-row pt-4 overflow-hidden rounded-md">
           <div class="hidden md:flex items-center justify-center w-[30%]">
@@ -181,7 +177,7 @@
             ></object>
           </div>
           <div class="w-full justify-center flex flex-col gap-4 md:w-[70%]">
-            <h1 class="text-2xl font-medium">Welcome to our Vault</h1>
+            <h1 class="text-2xl font-medium p">Welcome to our Vault</h1>
             <h2 class="max-w-screen-md">
               The Vault is a safe place to to store passwords for online
               shopping and even documents.And no matter where you work,you vault
