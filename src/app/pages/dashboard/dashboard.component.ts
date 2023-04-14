@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { MongoDBService } from 'src/app/services/mongo-db.service';
-
+// import { createAvatar } from '@dicebear/avatars';
+// import * as avatarsMale from '@dicebear/avatars';
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -9,12 +11,14 @@ import { MongoDBService } from 'src/app/services/mongo-db.service';
 export class DashboardComponent implements OnInit {
 
   constructor(
-    private mongoService: MongoDBService
+    private mongoService: MongoDBService,
+    private toaster: ToastrService
   ) { }
-
+  avatarSvg!: any
   siteArray!: any
-  isShow!: any
+  isShow: Boolean = false
   fullUser!: any
+  generatePasswords!: any
 
   // ? this is a method in dashboard to delete the site inside that component
   deleteSite(id: String) {
@@ -44,6 +48,32 @@ export class DashboardComponent implements OnInit {
       this.fullUser = val
       console.log(this.fullUser)
     })
+
+    //   const seed = Math.random().toString(36).substring(7); // Generate a random seed
+    //   const avatar = createAvatar(avatarsMale, {
+    //     seed: seed,
+    //     background: '#FDB813',
+    //     color: ['#FFFFFF', '#F8F9FA', '#CED4DA', '#6C757D', '#343A40'],
+    //     radius: 50,
+    //     margin: 10
+    //   });
+
+    //   this.avatarSvg = avatar;
+
+  }
+
+  generatePassword(length: number = 16): void {
+    const chars = 'abcdefghijklmnopqrstuvwxyz0123456789';
+    let password = '';
+
+    for (let i = 0; i < length; i++) {
+      password += chars.charAt(Math.floor(Math.random() * chars.length));
+    }
+
+    this.generatePasswords = password;
+    navigator.clipboard.writeText(this.generatePasswords)
+    console.log(this.generatePasswords)
+    this.toaster.success("Password copied to clipboard")
   }
 
 }

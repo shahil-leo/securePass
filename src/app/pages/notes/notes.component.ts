@@ -64,6 +64,7 @@ export class NotesComponent implements OnInit {
           FormData.reset()
           this.isBool = false
           this.toaster.success
+          location.reload()
         }
       })
     }
