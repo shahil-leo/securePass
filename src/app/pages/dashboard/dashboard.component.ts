@@ -26,7 +26,6 @@ export class DashboardComponent implements OnInit {
         complete: () => { location.reload() }
       })
     } else {
-      location.reload()
     }
 
   }
