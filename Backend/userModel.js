@@ -20,6 +20,14 @@ const UserSchema = mongoose.Schema({
         }
       ]
     }
+  ],
+  note: [
+    {
+      heading: String,
+      sideHeading: String,
+      paragraph: String
+    }
+
   ]
 
 })

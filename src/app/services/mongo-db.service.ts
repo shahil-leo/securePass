@@ -82,6 +82,16 @@ export class MongoDBService {
     return this.http.get(`http://localhost:4000/allPass/${userId}`)
   }
 
+  // ***************************************notes ****************************************/
 
+  addNotes(data: any) {
+    const userId = this.localStorage()
+    return this.http.put(`http://localhost:4000/note-add/${userId}`, data)
+  }
+
+  getNotes() {
+    const userId = this.localStorage()
+    return this.http.get(`http://localhost:4000/note-get/${userId}`)
+  }
 
 }
