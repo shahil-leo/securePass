@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MongoDBService } from 'src/app/services/mongo-db.service';
-// import { createAvatar } from '@dicebear/avatars';
-// import * as avatarsMale from '@dicebear/avatars';
+
 import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-dashboard',
@@ -45,8 +44,12 @@ export class DashboardComponent implements OnInit {
       complete: () => console.log(this.siteArray)
     })
     this.mongoService.DetailsAboutUser().subscribe((val) => {
-      this.fullUser = val
-      console.log(this.fullUser)
+      // this.fullUser = val
+      let a = JSON.stringify(val)
+      const fullValue = JSON.parse(a);
+      const { token, userDetail } = fullValue
+      this.fullUser = userDetail
+      localStorage.setItem('token', token)
     })
 
     //   const seed = Math.random().toString(36).substring(7); // Generate a random seed

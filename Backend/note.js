@@ -61,7 +61,4 @@ router.delete('/note-delete/:userId/:id', async (req, res) => {
 
 
 
-
-
-
 module.exports = router

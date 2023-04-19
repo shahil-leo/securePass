@@ -4,6 +4,10 @@ import { FormBuilder, FormGroup, NgControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { MongoDBService } from 'src/app/services/mongo-db.service';
+import * as jwt from 'jsonwebtoken';
+import { sign } from 'jsonwebtoken';
+
+
 
 @Component({
   selector: 'app-login',
@@ -36,15 +40,18 @@ export class LoginComponent implements OnInit {
 
   onSubmit() {
     this.mongoService.loginUser('http://localhost:4000/login', this.form.value).subscribe({
-      next: (res: any) => { this.loggedUserId = res._id, this.toaster.success("login successFully") },
+      next: (res: any) => { this.loggedUserId = res._id, console.log(res), this.toaster.success("login successFully") },
       error: (err: HttpErrorResponse) => this.toaster.error(err.error),
       complete: () => { localStorage.setItem('id', this.loggedUserId), this.router.navigate(['/dashboard']) }
     })
 
   }
 
+
+
   onTogglePasswordShow() {
     this.passwordVisible = !this.passwordVisible
   }
+
 
 }

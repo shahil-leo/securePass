@@ -23,6 +23,7 @@ import { RegisterSiteComponent } from './pages/register-site/register-site.compo
 import { RegisterPasswordComponent } from './pages/register-password/register-password.component';
 import { AllPassComponent } from './pages/all-pass/all-pass.component';
 import { NotesComponent } from './pages/notes/notes.component';
+import { PasswordGeneratorComponent } from './pages/password-generator/password-generator.component';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import { NotesComponent } from './pages/notes/notes.component';
     RegisterPasswordComponent,
     AllPassComponent,
     NotesComponent,
+    PasswordGeneratorComponent,
 
   ],
   imports: [

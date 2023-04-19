@@ -8,16 +8,19 @@ import { RegisterSiteComponent } from './pages/register-site/register-site.compo
 import { RegisterPasswordComponent } from './pages/register-password/register-password.component';
 import { AllPassComponent } from './pages/all-pass/all-pass.component';
 import { NotesComponent } from './pages/notes/notes.component';
+import { AuthGuard } from './services/auth.guard';
+import { PasswordGeneratorComponent } from './pages/password-generator/password-generator.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
-  { path: 'dashboard', component: DashboardComponent },
-  { path: 'register-site', component: RegisterSiteComponent },
+  { path: 'dashboard', component: DashboardComponent, },
+  { path: 'register-site', component: RegisterSiteComponent, },
   { path: 'register-password/:id/:data', component: RegisterPasswordComponent },
-  { path: 'all-pass', component: AllPassComponent },
+  { path: 'all-pass', component: AllPassComponent, },
   { path: 'note', component: NotesComponent },
+  { path: 'generate-password', component: PasswordGeneratorComponent },
 ];
 
 @NgModule({

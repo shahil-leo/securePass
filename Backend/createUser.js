@@ -2,6 +2,9 @@ const router = require('express').Router()
 const userModel = require('./userModel')
 const bcrypt = require('bcrypt')
 const { ObjectId } = require('mongodb');
+const dotenv = require('dotenv')
+dotenv.config()
+const jwt = require('jsonwebtoken');
 
 
 router.post('/register', async (req, res) => {
@@ -41,6 +44,8 @@ router.post('/login', async (req, res) => {
 
   const hashPassword = await bcrypt.compare(req.body.password, userByEmail.password)
   if (!hashPassword) return res.status(500).send('please enter correct password')
+  const { id } = userByEmail
+  console.log(id);
   res.status(200).send(userByEmail)
 
 })
@@ -51,11 +56,27 @@ router.get('/user-details/:id', async (req, res) => {
   if (error) return res.status(500).send(error[0].message)
 
   const userDetail = await userModel.findOne({ _id: new ObjectId(id) })
-  if (!userDetail) return res.status(500).send("not matched")
-  res.status(200).send(userDetail)
+  // if (!userDetail) return res.status(500).send("not matched")
+  // res.status(200).send(userDetail)
+  if (userDetail) {
+    const token = JWTCreate(userDetail._id)
+    res.status(200).send({ token, userDetail })
+  } else {
+    res.status(500).send('not matched')
+  }
 })
 
+// Creating json webTokne
+
+function JWTCreate(id) {
+  const payload = {
+    id: id
+  }
+  const secret = process.env.secret_jwt
+  const token = jwt.sign(payload, secret, { expiresIn: '2d' })
+  return token
+}
+
+
+
 module.exports = router
-
-
-
