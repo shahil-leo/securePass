@@ -12,15 +12,15 @@ import { AuthGuard } from './services/auth.guard';
 import { PasswordGeneratorComponent } from './pages/password-generator/password-generator.component';
 
 const routes: Routes = [
-  { path: '', component: HomeComponent },
+  { path: '', component: HomeComponent, },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
-  { path: 'dashboard', component: DashboardComponent, },
-  { path: 'register-site', component: RegisterSiteComponent, },
+  { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
+  { path: 'register-site', component: RegisterSiteComponent, canActivate: [AuthGuard] },
   { path: 'register-password/:id/:data', component: RegisterPasswordComponent },
-  { path: 'all-pass', component: AllPassComponent, },
-  { path: 'note', component: NotesComponent },
-  { path: 'generate-password', component: PasswordGeneratorComponent },
+  { path: 'all-pass', component: AllPassComponent, canActivate: [AuthGuard] },
+  { path: 'note', component: NotesComponent, canActivate: [AuthGuard] },
+  { path: 'generate-password', component: PasswordGeneratorComponent, canActivate: [AuthGuard] },
 ];
 
 @NgModule({

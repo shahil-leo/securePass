@@ -44,9 +44,13 @@ router.post('/login', async (req, res) => {
 
   const hashPassword = await bcrypt.compare(req.body.password, userByEmail.password)
   if (!hashPassword) return res.status(500).send('please enter correct password')
-  const { id } = userByEmail
-  console.log(id);
-  res.status(200).send(userByEmail)
+  if (userByEmail) {
+    const token = JWTCreate(userByEmail._id)
+    console.log(token);
+    res.status(200).send({ token, userByEmail })
+  } else {
+    res.status(500).send('not matched')
+  }
 
 })
 
@@ -56,13 +60,32 @@ router.get('/user-details/:id', async (req, res) => {
   if (error) return res.status(500).send(error[0].message)
 
   const userDetail = await userModel.findOne({ _id: new ObjectId(id) })
-  // if (!userDetail) return res.status(500).send("not matched")
-  // res.status(200).send(userDetail)
-  if (userDetail) {
-    const token = JWTCreate(userDetail._id)
-    res.status(200).send({ token, userDetail })
+  if (!userDetail) return res.status(500).send("not matched")
+  res.status(200).send(userDetail)
+  // if (userDetail) {
+  //   const token = JWTCreate(userDetail._id)
+  //   res.status(200).send({ token, userDetail })
+  // } else {
+  //   res.status(500).send('not matched')
+  // }
+})
+
+router.get('/jwt/:token', async (req, res) => {
+  const token = req.params.token
+  console.log(token)
+  console.log('leo')
+  if (token) {
+    try {
+      const secret = process.env.secret_jwt;
+      const decodedToken = jwt.verify(token, secret);
+      return res.status(200).send(true)
+    } catch {
+      // this.router.navigate(['/login']);
+      return res.status(500).send(false);
+    }
   } else {
-    res.status(500).send('not matched')
+    // this.router.navigate(['/login']);
+    return res.status(500).send(false)
   }
 })
 
@@ -76,6 +99,9 @@ function JWTCreate(id) {
   const token = jwt.sign(payload, secret, { expiresIn: '2d' })
   return token
 }
+
+
+
 
 
 

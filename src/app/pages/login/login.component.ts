@@ -40,7 +40,12 @@ export class LoginComponent implements OnInit {
 
   onSubmit() {
     this.mongoService.loginUser('http://localhost:4000/login', this.form.value).subscribe({
-      next: (res: any) => { this.loggedUserId = res._id, console.log(res), this.toaster.success("login successFully") },
+      next: (res: any) => {
+        this.loggedUserId = res.userByEmail._id,
+          localStorage.setItem('token', res.token)
+
+        this.toaster.success("login successFully")
+      },
       error: (err: HttpErrorResponse) => this.toaster.error(err.error),
       complete: () => { localStorage.setItem('id', this.loggedUserId), this.router.navigate(['/dashboard']) }
     })

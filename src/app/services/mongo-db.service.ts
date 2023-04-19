@@ -110,5 +110,11 @@ export class MongoDBService {
     return this.http.delete(`http://localhost:4000/note-delete/${userId}/${id}`)
   }
 
+  checkJwt() {
+    const token = localStorage.getItem('token')
+    console.log(token)
+    return this.http.get(`http://localhost:4000/jwt/${token}`)
+  }
+
 
 }

@@ -1,30 +1,39 @@
+
 import { Injectable } from '@angular/core';
-import { CanActivate, Route, Router } from '@angular/router';
-import { Observable } from 'rxjs';
-import * as jwt from 'jsonwebtoken'
+import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+import { Observable, map } from 'rxjs';
+import { MongoDBService } from './mongo-db.service';
+
 @Injectable({
   providedIn: 'root'
 })
 export class AuthGuard implements CanActivate {
 
-  constructor(private router: Router) { }
+  isJwt!: any
 
-  canActivate(): boolean {
-    const token = localStorage.getItem('token')
-    console.log(token)
-    if (token) {
-      try {
-        const secret = 'shahilisakilladi';
-        const decodedToken = jwt.verify(token, secret);
-        return true;
-      } catch {
-        this.router.navigate(['/login']);
-        return false;
-      }
-    } else {
-      this.router.navigate(['/login']);
-      return false;
-    }
+  constructor(
+    private mongoDBService: MongoDBService,
+    private route: Router,
+    private toastr: ToastrService
+  ) { }
+  canActivate(
+    route: ActivatedRouteSnapshot,
+    state: RouterStateSnapshot
+  ): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
+    return this.mongoDBService.checkJwt().pipe(
+      map((res) => {
+        if (res) {
+          console.log('suuii');
+          return true;
+        } else {
+          console.log('noo');
+          this.toastr.warning("You don't have permission to access the page ");
+          this.route.navigate(['/login']);
+          return false;
+        }
+      }),
+    );
   }
 
 }

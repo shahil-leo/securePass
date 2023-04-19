@@ -47,9 +47,8 @@ export class DashboardComponent implements OnInit {
       // this.fullUser = val
       let a = JSON.stringify(val)
       const fullValue = JSON.parse(a);
-      const { token, userDetail } = fullValue
-      this.fullUser = userDetail
-      localStorage.setItem('token', token)
+      this.fullUser = fullValue
+
     })
 
     //   const seed = Math.random().toString(36).substring(7); // Generate a random seed
@@ -62,7 +61,11 @@ export class DashboardComponent implements OnInit {
     //   });
 
     //   this.avatarSvg = avatar;
+  }
 
+  removeId() {
+    localStorage.removeItem('id')
+    localStorage.removeItem('token')
   }
 
   generatePassword(length: number = 16): void {
