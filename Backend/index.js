@@ -10,6 +10,8 @@ const siteList = require('./siteList')
 const passwordList = require('./passwordList')
 const allPass = require('./allPass')
 const note = require('./note')
+const port = process.env.port || 4000
+console.log(port)
 
 const dotenv = require('dotenv')
 dotenv.config()
@@ -21,7 +23,7 @@ const mongoUrl = `mongodb+srv://shahil_kv:${mongoPass}@securepass.ltjt1vx.mongod
 
 mongoose.connect(mongoUrl).then(() => {
   console.log("DataBase Connected")
-  app.listen(4000, () => {
+  app.listen(port, () => {
     console.log("port listening to 4000")
   })
 }).catch((e) => {
