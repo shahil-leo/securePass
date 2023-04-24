@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MongoDBService } from 'src/app/services/mongo-db.service';
 
 import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -11,7 +12,8 @@ export class DashboardComponent implements OnInit {
 
   constructor(
     private mongoService: MongoDBService,
-    private toaster: ToastrService
+    private toaster: ToastrService,
+    private router: Router
   ) { }
   avatarSvg!: any
   siteArray!: any
@@ -66,6 +68,7 @@ export class DashboardComponent implements OnInit {
   removeId() {
     localStorage.removeItem('id')
     localStorage.removeItem('token')
+    this.router.navigate(['/login'])
   }
 
   generatePassword(length: number = 16): void {

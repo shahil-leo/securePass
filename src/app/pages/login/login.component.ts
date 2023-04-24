@@ -4,8 +4,7 @@ import { FormBuilder, FormGroup, NgControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { MongoDBService } from 'src/app/services/mongo-db.service';
-import * as jwt from 'jsonwebtoken';
-import { sign } from 'jsonwebtoken';
+
 
 
 

@@ -17,7 +17,6 @@
         ></path>
       </svg>
     </button>
-    <button (click)="removeId()">click here</button>
     <!-- the buttons in the sidebar -->
     <div
       id="sidebar"
@@ -164,6 +163,7 @@
         </div>
       </div>
       <button
+        (click)="removeId()"
         class="hidden px-10 py-2 ml-5 text-center rounded-lg bg-primary/30 md:block md:mt-56"
       >
         Logout
