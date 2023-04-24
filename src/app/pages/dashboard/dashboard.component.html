@@ -1,17 +1,17 @@
 <!-- component -->
-<body class="antialiased font-poppins">
+<body class="font-poppins">
   <div id="view" class="flex flex-row w-full">
     <div
       id="sidebar"
-      class="fixed w-24 h-screen px-3 overflow-x-hidden transition-transform duration-300 ease-in-out bg-white shadow-xl md:block md:w-40 lg:w-60"
+      class="fixed w-20 h-screen px-3 overflow-x-hidden transition-transform duration-300 ease-in-out bg-white shadow-xl md:block md:w-40 lg:w-60"
       x-show="sidenav"
     >
-      <div class="flex flex-col justify-between mt-10 space-y-6 md:space-y-10">
+      <div class="flex flex-col justify-around pt-10">
         <div>
           <h1 class="text-4xl font-bold text-center md:hidden">
             S<span class="text-primary">.</span>
           </h1>
-          <h1 class="text-sm font-bold text-center md:block md:text-xl">
+          <h1 class="hidden text-sm font-bold text-center md:block md:text-xl">
             secure<span class="text-primary">Pass.</span>
           </h1>
           <div
@@ -25,7 +25,7 @@
             />
             <div *ngIf="this.fullUser">
               <h2
-                class="max-w-xs mb-20 text-xs font-medium text-center text-primarbg-primary md:text-sm"
+                class="max-w-xs mb-20 text-xs font-medium text-center text-primary md:text-sm"
               >
                 {{ this.fullUser.firstName }}
               </h2>
@@ -64,16 +64,7 @@
             <div
               class="flex flex-col items-center justify-center gap-2 md:block"
             >
-              <svg
-                class="inline-block w-6 h-6 fill-current"
-                fill="currentColor"
-                viewBox="0 0 20 20"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M5 3a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2V5a2 2 0 00-2-2H5zM5 11a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2v-2a2 2 0 00-2-2H5zM11 5a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V5zM11 13a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"
-                ></path>
-              </svg>
+              <i class="fa-solid fa-lock"></i>
               <span class="block text-xs text-center md:mt-4 md:inline md:mx-2"
                 >Password List</span
               >
@@ -86,16 +77,7 @@
             <div
               class="flex flex-col items-center justify-center gap-2 md:block"
             >
-              <svg
-                class="inline-block w-6 h-6 fill-current"
-                fill="currentColor"
-                viewBox="0 0 20 20"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M5 3a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2V5a2 2 0 00-2-2H5zM5 11a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2v-2a2 2 0 00-2-2H5zM11 5a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V5zM11 13a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"
-                ></path>
-              </svg>
+              <i class="fa-solid fa-note-sticky"></i>
               <span class="block text-xs text-center md:mt-4 md:inline md:mx-2"
                 >Notes List</span
               >
@@ -108,16 +90,7 @@
             <div
               class="flex flex-col items-center justify-center gap-2 md:block"
             >
-              <svg
-                class="inline-block w-6 h-6 fill-current"
-                fill="currentColor"
-                viewBox="0 0 20 20"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M5 3a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2V5a2 2 0 00-2-2H5zM5 11a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2v-2a2 2 0 00-2-2H5zM11 5a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V5zM11 13a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"
-                ></path>
-              </svg>
+              <i class="fa-solid fa-recycle"></i>
               <span class="block text-xs text-center md:mt-4 md:inline md:mx-2"
                 >Generate password</span
               >
@@ -132,13 +105,27 @@
             Logout
           </button>
         </div>
+        <a
+          class="p-1 text-sm font-medium text-gray-700 transition duration-150 ease-in-out rounded-md md:hidden md:p-3 md:px-2 md:py-4 hover:bg-primary hover:text-white hover:text-base"
+        >
+          <div
+            class="flex flex-col items-center justify-center gap-2 mt-36 md:block"
+          >
+            <i class="fa-solid fa-right-from-bracket"></i>
+            <span class="block text-xs text-center md:mt-4 md:inline md:mx-2"
+              >Logout</span
+            >
+          </div>
+        </a>
       </div>
     </div>
     <!-- end of side bar -->
     <div
-      class="bg-[#eaeff9] lg:w-[calc(100vw-15rem)] lg:ml-60 md:w-[calc(100vw-11rem)] md:ml-44 w-[calc(100vw-6rem)] ml-24 px-4 py-4 md:px-10 md:py-5 lg:px-20"
+      class="bg-[#eaeff9] h-screen lg:w-[calc(100vw-15rem)] lg:ml-60 md:w-[calc(100vw-11rem)] md:ml-44 w-[calc(100vw-5rem)] ml-20 px-4 py-4 md:px-10 md:py-5 lg:px-20"
     >
-      <div class="flex flex-col justify-between gap-5 lg:flex-row md:mt-7">
+      <div
+        class="flex flex-col flex-wrap justify-between gap-5 lg:flex-row md:mt-7"
+      >
         <div class="flex flex-col gap-5 md:flex-row">
           <button
             (click)="generatePassword()"
