@@ -52,7 +52,6 @@ export class PasswordGeneratorComponent {
 
   // Checkbox value
   updateCheckboxValue(event: any) {
-    console.log(event.target.id)
     if (event.target.id == "lowercase")
       this.lowercase = event.target.checked;
 
@@ -102,6 +101,5 @@ export class PasswordGeneratorComponent {
 
   copyPass() {
     navigator.clipboard.writeText(this.newPassword)
-    console.log(this.newPassword)
   }
 }

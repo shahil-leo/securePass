@@ -24,7 +24,7 @@ import { RegisterPasswordComponent } from './pages/register-password/register-pa
 import { AllPassComponent } from './pages/all-pass/all-pass.component';
 import { NotesComponent } from './pages/notes/notes.component';
 import { PasswordGeneratorComponent } from './pages/password-generator/password-generator.component';
-import { NotFoundComponent } from './components/not-found/not-found.component';
+import { NotFoundComponent } from './pages/not-found/not-found.component';
 
 @NgModule({
   declarations: [

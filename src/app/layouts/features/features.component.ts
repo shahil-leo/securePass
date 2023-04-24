@@ -7,10 +7,8 @@ import * as AOS from 'aos';
   templateUrl: './features.component.html',
   styleUrls: ['./features.component.scss']
 })
-export class FeaturesComponent implements OnInit {
+export class FeaturesComponent {
 
-  ngOnInit(): void {
-    AOS.init();
-  }
+
 
 }

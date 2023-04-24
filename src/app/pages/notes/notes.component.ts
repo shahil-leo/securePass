@@ -43,7 +43,6 @@ export class NotesComponent implements OnInit {
 
   FormSubmit(FormData: any) {
     if (this.TypeOfNote === "Add") {
-      console.log(FormData.value)
       this.mongoServie.addNotes(FormData.value).subscribe({
         next: (res) => { },
         error: (e) => { this.toaster.error(e.message) },
@@ -55,8 +54,6 @@ export class NotesComponent implements OnInit {
         }
       })
     } else if (this.TypeOfNote === 'Edit') {
-      console.log(FormData.value)
-      console.log(this.editNoteId)
       this.mongoServie.updateNotes(this.editNoteId, FormData.value).subscribe({
         next: (res) => { console.log(res) },
         error: (e) => { console.log(e) },

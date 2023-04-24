@@ -46,7 +46,6 @@ router.post('/login', async (req, res) => {
   if (!hashPassword) return res.status(500).send('please enter correct password')
   if (userByEmail) {
     const token = JWTCreate(userByEmail._id)
-    console.log(token);
     res.status(200).send({ token, userByEmail })
   } else {
     res.status(500).send('not matched')

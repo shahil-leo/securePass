@@ -117,7 +117,6 @@ export class MongoDBService {
   checkJwt() {
     const token = localStorage.getItem('token')
     if (token) {
-      console.log(token)
       return this.http.get(`http://localhost:4000/jwt/${token}`)
     }
     else {

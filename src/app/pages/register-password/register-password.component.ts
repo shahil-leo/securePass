@@ -89,14 +89,12 @@ export class RegisterPasswordComponent implements OnInit {
 
       const passwordHash = crypto.AES.encrypt(this.Form.value.password, 'haneena').toString()
 
-      console.log(this.Form.value)
       const FormEncryptedData = {
         email: this.Form.value.email,
         username: this.Form.value.username,
         passwordHint: this.Form.value.passwordHint,
         password: passwordHash
       }
-      console.log(FormEncryptedData)
 
       this.mongoService.updatePasswordList(this.passwordOneId, FormEncryptedData, this.siteId).subscribe({
         next: (res) => { console.log(res) },
@@ -140,10 +138,8 @@ export class RegisterPasswordComponent implements OnInit {
       this.StaticTemplate = "Edit"
       const allPassData = this.mongoService.DataAllPass
       const allPassDataId = this.mongoService.DataAllPassId
-      console.log({ allPassData, allPassDataId })
       const passwordList = allPassData.passwordList
       passwordList.map((val: any) => { if (val._id === allPassDataId) this.singleData = val })
-      console.log(this.singleData)
       this.passwordOneId = allPassDataId
       this.siteId = allPassData._id
       this.updateForm(this.singleData)
@@ -184,7 +180,7 @@ export class RegisterPasswordComponent implements OnInit {
     const isTrue = confirm("Are you sure you will lose the data")
     if (isTrue) {
       this.mongoService.deletePasswordList(id, this.siteId).subscribe({
-        next: (res) => { console.log(res) },
+        next: (res) => { },
         error: (err) => { this.toaster.error(err[0].message) },
         complete: () => {
           this.toaster.success("Deleted successFully")
@@ -192,14 +188,13 @@ export class RegisterPasswordComponent implements OnInit {
         }
       })
     } else {
-      console.log('suii')
+      console.log('failed to delete password')
     }
 
   }
   // when the user clicks the buttont
   togglePasswordShow() {
     this.PasswordSee = !this.PasswordSee
-    console.log(this.PasswordSee)
   }
 
   // testing which form control is not working using this

@@ -81,7 +81,6 @@ export class DashboardComponent implements OnInit {
 
     this.generatePasswords = password;
     navigator.clipboard.writeText(this.generatePasswords)
-    console.log(this.generatePasswords)
     this.toaster.success("Password copied to clipboard")
   }
 

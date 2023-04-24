@@ -10,7 +10,7 @@ import { AllPassComponent } from './pages/all-pass/all-pass.component';
 import { NotesComponent } from './pages/notes/notes.component';
 import { AuthGuard } from './services/auth.guard';
 import { PasswordGeneratorComponent } from './pages/password-generator/password-generator.component';
-import { NotFoundComponent } from './components/not-found/not-found.component';
+import { NotFoundComponent } from './pages/not-found/not-found.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'home' },
@@ -23,7 +23,7 @@ const routes: Routes = [
   { path: 'all-pass', component: AllPassComponent, canActivate: [AuthGuard] },
   { path: 'note', component: NotesComponent, canActivate: [AuthGuard] },
   { path: 'generate-password', component: PasswordGeneratorComponent, canActivate: [AuthGuard] },
-  { path: '**', component: NotFoundComponent },
+  { path: '**', component: NotFoundComponent }
 ];
 
 @NgModule({

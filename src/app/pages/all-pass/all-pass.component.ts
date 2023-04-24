@@ -46,7 +46,6 @@ export class AllPassComponent implements OnInit {
     const condition = confirm('Are you sure want to delete the password item')
     if (condition) {
       const userId = localStorage.getItem('id')
-      console.log({ userId, sitesId, id })
       this.mongoService.deletePasswordList(id, sitesId).subscribe(
         {
           next: (res) => { },
@@ -58,7 +57,7 @@ export class AllPassComponent implements OnInit {
         }
       )
     } else {
-      console.log('okay')
+      console.log('Error in deleting password')
     }
 
   }

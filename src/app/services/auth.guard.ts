@@ -24,10 +24,8 @@ export class AuthGuard implements CanActivate {
     return this.mongoDBService.checkJwt().pipe(
       map((res) => {
         if (res) {
-          console.log('suuii');
           return true;
         } else {
-          console.log('noo');
           this.toastr.warning("You don't have permission to access the page ");
           this.route.navigate(['/login']);
           return false;

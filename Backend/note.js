@@ -8,7 +8,6 @@ router.put('/note-add/:id', async (req, res) => {
   if (error) return res.status(500).send(error[0].message)
   const id = req.params.id
   const note = req.body
-  console.log({ id, note })
   const noteAdd = await userModel.updateOne(
     { _id: new ObjectId(id) },
     { $push: { note: note } }
