@@ -28,11 +28,11 @@ mongoose.connect(mongoUrl).then(() => {
   console.log(e);
 })
 
-app.use('/', userCreate)
-app.use('/', siteList)
-app.use('/', passwordList)
-app.use('/', allPass)
-app.use('/', note)
+app.use('/user', userCreate)
+app.use('/site', siteList)
+app.use('/password', passwordList)
+app.use('/every/', allPass)
+app.use('/note', note)
 
 
 // structure of mongoDB database

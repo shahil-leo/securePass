@@ -38,7 +38,7 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit() {
-    this.mongoService.loginUser('http://localhost:4000/login', this.form.value).subscribe({
+    this.mongoService.loginUser('http://localhost:4000/user/login', this.form.value).subscribe({
       next: (res: any) => {
         this.loggedUserId = res.userByEmail._id,
           localStorage.setItem('token', res.token)

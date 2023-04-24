@@ -20,7 +20,7 @@ const secretKey = process.env.secret_crypto
 // * then inside that we will use the site.$.passwordList which means that query is automatically our object index using the $ and then we will get the object inside the passwordList we insert our objects of data
 
 //? adding passwordsData includes the id and everything for the passwordList to the passwordList array as object
-router.put('/sitePasswordCreate/:id/:userId', async (req, res) => {
+router.put('/create/:id/:userId', async (req, res) => {
   const passwordHash = CryptoJS.AES.encrypt(req.body.password, secretKey).toString()
   const form = {
     email: req.body.email,
@@ -46,7 +46,7 @@ router.put('/sitePasswordCreate/:id/:userId', async (req, res) => {
 // * this is something tricky because we have a sites array and we will get the index of the object id available  'sites.$[site].passwordList.$[password]': updatedData  this is the line first the site array and the query will find us the index of the sites array object using the id then inside that we have a passwordList array we provide a id and the query will give us the passwordList index and then we will update the object that is our target to update
 
 //? updating the passwords inside the siteList register list
-router.put('/siteUpdatePassword/:id/:userId/:sitesId', async (req, res) => {
+router.put('/update/:id/:userId/:sitesId', async (req, res) => {
   const updatedData = req.body
   const userId = req.params.userId
   const id = req.params.id
@@ -76,12 +76,11 @@ router.put('/siteUpdatePassword/:id/:userId/:sitesId', async (req, res) => {
 })
 
 // ? deleting the object using the simple method using the same filter and this is find one and update
-router.delete('/siteDeletePassword/:id/:userId/:sitesId', async (req, res) => {
+router.delete('/delete/:id/:userId/:sitesId', async (req, res) => {
 
   const userId = req.params.userId
   const id = req.params.id
   const sitesId = req.params.sitesId
-
 
   const filter = { _id: new ObjectId(userId), "sites._id": new ObjectId(sitesId) };
   const update = { $pull: { "sites.$.passwordList": { _id: new ObjectId(id) } } };

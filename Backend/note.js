@@ -3,7 +3,7 @@ const { ObjectId } = require('mongodb');
 const userModel = require('./userModel')
 
 // adding notes to db
-router.put('/note-add/:id', async (req, res) => {
+router.put('/add/:id', async (req, res) => {
   const { error } = req.body
   if (error) return res.status(500).send(error[0].message)
   const id = req.params.id
@@ -17,7 +17,7 @@ router.put('/note-add/:id', async (req, res) => {
 })
 
 //getting notes from db
-router.get('/note-get/:id', async (req, res) => {
+router.get('/get/:id', async (req, res) => {
   const { error } = req.body
   if (error) return res.status(500).send(error[0].message)
   const id = req.params.id
@@ -26,7 +26,7 @@ router.get('/note-get/:id', async (req, res) => {
   res.status(200).send(getNotes)
 })
 
-router.put('/note-update/:userId/:id', async (req, res) => {
+router.put('/update/:userId/:id', async (req, res) => {
   const { error } = req.body
   if (error) return res.status(500).send(error[0].message)
   const id = req.params.id
@@ -46,7 +46,7 @@ router.put('/note-update/:userId/:id', async (req, res) => {
   res.status(200).send(updateNotes)
 })
 
-router.delete('/note-delete/:userId/:id', async (req, res) => {
+router.delete('/delete/:userId/:id', async (req, res) => {
   const id = req.params.id
   const userId = req.params.userId
 

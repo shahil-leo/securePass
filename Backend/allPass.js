@@ -4,7 +4,7 @@ const userModel = require('./userModel')
 
 
 // ? getting all the passwordList of users
-router.get('/allPass/:id', async (req, res) => {
+router.get('/pass/:id', async (req, res) => {
   const id = req.params.id
   const passwordList = await userModel.aggregate([
     { $match: { _id: new ObjectId(id) } },

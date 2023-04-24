@@ -9,7 +9,7 @@ const userModel = require('./userModel')
 // * the array contains all the objects like   the sites object each flipKart amazon everything is a object stored in a array
 
 // ?getting details about siteList array
-router.get('/siteList/:userId', async (req, res) => {
+router.get('/details/:userId', async (req, res) => {
   const userId = req.params.userId
   const { error } = req.body
   if (error) return res.status(500).send(error[0].message)
@@ -41,7 +41,7 @@ router.put('/add/:userId', async (req, res) => {
 // * then we will do set the sites array and index will be given by the query thats way we use the $ dollar sign inside that then we will get the object using the index and then we have the siteName and other properties inside that simply we will update by calling the method
 
 // updating siteList data
-router.put('/updateSites/:sitesId/:userId', async (req, res) => {
+router.put('/update/:sitesId/:userId', async (req, res) => {
   const { error } = req.body
   if (error) return res.status(500).send(error[0].message)
   const sitesId = req.params.sitesId
@@ -67,7 +67,7 @@ router.put('/updateSites/:sitesId/:userId', async (req, res) => {
 // * first finding the user next is we will get the sites array then we do the mapping and everyObj id matches our clicked id if any of them matched then we got the object as simple as that
 
 // ? we are using this method because we are first finding every object inside the sites array we only need the clicked sites details and its id that's way we are using the one
-router.get('/siteObject/:id/:userId', async (req, res) => {
+router.get('/object/:id/:userId', async (req, res) => {
   const { error } = req.body
   if (error) return res.status(500).send(error[0].message)
   const objId = req.params.id
@@ -83,7 +83,7 @@ router.get('/siteObject/:id/:userId', async (req, res) => {
 // * in this method also we are using the similiar method once any method that matches the same id as the sites then we can delete
 
 // ? this is the method we are using the delete the site one by one
-router.delete('/siteDelete/:id/:userId', async (req, res) => {
+router.delete('/delete/:id/:userId', async (req, res) => {
   const { error } = req.body
   if (error) return res.status(500).send(error[0].message)
   const id = req.params.id

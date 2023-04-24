@@ -44,7 +44,7 @@ export class RegisterComponent {
     if (!(this.Form.value.password === this.Form.value.confirmPassword)) {
       return this.toaster.error('Password Not matching')
     }
-    return this.mongoService.addUser('http://localhost:4000/register', this.Form.value).subscribe(
+    return this.mongoService.addUser('http://localhost:4000/user/register', this.Form.value).subscribe(
       {
         next: (res) => { this.registerUserId = res[0]._id, this.toaster.success("Registration Successfully") },
         error: (err: HttpErrorResponse) => { this.toaster.error(err.error), console.log(err.error) },

@@ -53,7 +53,7 @@ router.post('/login', async (req, res) => {
 
 })
 
-router.get('/user-details/:id', async (req, res) => {
+router.get('/details/:id', async (req, res) => {
   const id = req.params.id
   const { error } = req.body
   if (error) return res.status(500).send(error[0].message)
@@ -80,7 +80,7 @@ router.get('/jwt/:token', async (req, res) => {
   }
 })
 
-// Creating json webTokne
+// Creating json webToken
 
 function JWTCreate(id) {
   const payload = {
