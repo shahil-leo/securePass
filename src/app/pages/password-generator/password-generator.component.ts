@@ -41,8 +41,8 @@ export class PasswordGeneratorComponent {
   symbols: Boolean = this.checkboxes[3].checked;
 
   passwordLenght: number = 4;
-  buttonLabel: String = "Generate";
-  newPassword: String = "securePassbyShahil"
+  buttonLabel: string = "Generate";
+  newPassword: string = "securePassbyShahil"
 
   // Password length
   updatePasswordLength(event: any) {
@@ -98,5 +98,10 @@ export class PasswordGeneratorComponent {
     this.newPassword = newPassword;
 
     return this.newPassword
+  }
+
+  copyPass() {
+    navigator.clipboard.writeText(this.newPassword)
+    console.log(this.newPassword)
   }
 }
