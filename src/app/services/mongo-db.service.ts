@@ -2,6 +2,8 @@ import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http'
 import { Injectable } from '@angular/core';
 import { Observable, } from 'rxjs';
 import { register, login } from '../../../src/app/models/mongo-data'
+import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +11,9 @@ import { register, login } from '../../../src/app/models/mongo-data'
 export class MongoDBService {
 
   constructor(
-    private http: HttpClient
+    private http: HttpClient,
+    private route: Router,
+    private toastr: ToastrService
   ) { }
 
   DataAllPass: any
@@ -112,8 +116,16 @@ export class MongoDBService {
 
   checkJwt() {
     const token = localStorage.getItem('token')
-    console.log(token)
-    return this.http.get(`http://localhost:4000/jwt/${token}`)
+    if (token) {
+      console.log(token)
+      return this.http.get(`http://localhost:4000/jwt/${token}`)
+    }
+    else {
+      this.route.navigate(['/login']);
+      this.toastr.warning("You don't have permission to access the page ");
+      return this.http.get(`http://localhost:4000/jwt/${token}`)
+    }
+
   }
 
 
