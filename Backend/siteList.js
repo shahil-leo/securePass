@@ -6,7 +6,7 @@ const userModel = require('./userModel')
 //** this is the query used to get all the things in a array we use the get method
 // * then we use the query of the first id then using that we get which user has logged in
 // * then we do findOne which returns the first matching element in the object and here our sites is the array which return
-// * the array contains all the objects like the sites object each flipkart amazon everything is a object stored in a array
+// * the array contains all the objects like   the sites object each flipKart amazon everything is a object stored in a array
 
 // ?getting details about siteList array
 router.get('/siteList/:userId', async (req, res) => {

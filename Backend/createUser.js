@@ -62,29 +62,21 @@ router.get('/user-details/:id', async (req, res) => {
   const userDetail = await userModel.findOne({ _id: new ObjectId(id) })
   if (!userDetail) return res.status(500).send("not matched")
   res.status(200).send(userDetail)
-  // if (userDetail) {
-  //   const token = JWTCreate(userDetail._id)
-  //   res.status(200).send({ token, userDetail })
-  // } else {
-  //   res.status(500).send('not matched')
-  // }
+
 })
 
 router.get('/jwt/:token', async (req, res) => {
   const token = req.params.token
-  console.log(token)
-  console.log('leo')
+
   if (token) {
     try {
       const secret = process.env.secret_jwt;
       const decodedToken = jwt.verify(token, secret);
       return res.status(200).send(true)
     } catch {
-      // this.router.navigate(['/login']);
       return res.status(500).send(false);
     }
   } else {
-    // this.router.navigate(['/login']);
     return res.status(500).send(false)
   }
 })
