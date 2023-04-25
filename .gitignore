@@ -43,3 +43,5 @@ Thumbs.db
 
 .dotenv
 Backend/.env
+src/environments/environment.development.ts
+src/environments/environment.ts
