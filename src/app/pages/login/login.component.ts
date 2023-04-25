@@ -4,9 +4,7 @@ import { FormBuilder, FormGroup, NgControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { MongoDBService } from 'src/app/services/mongo-db.service';
-
-
-
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-login',
@@ -38,7 +36,8 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit() {
-    this.mongoService.loginUser('http://localhost:4000/user/login', this.form.value).subscribe({
+
+    this.mongoService.loginUser(`${environment.apiEndPoint}/user/login`, this.form.value).subscribe({
       next: (res: any) => {
         this.loggedUserId = res.userByEmail._id,
           localStorage.setItem('token', res.token)

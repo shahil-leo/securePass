@@ -4,6 +4,7 @@ import { Observable, } from 'rxjs';
 import { register, login } from '../../../src/app/models/mongo-data'
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -34,94 +35,94 @@ export class MongoDBService {
 
   DetailsAboutUser() {
     const id = this.localStorage()
-    return this.http.get(`http://localhost:4000/user/details/${id}`)
+    return this.http.get(`${environment.apiEndPoint}/user/details/${id}`)
   }
 
   //***************************************************sites **************************** */
   // ? getting all the sites inside the dashboard component
   getSites() {
     const id = localStorage.getItem('id')
-    return this.http.get(`http://localhost:4000/site/details/${id}`)
+    return this.http.get(`${environment.apiEndPoint}/site/details/${id}`)
   }
 
   //? adding one site
   addSites(data: any): Observable<any> {
     const id = this.localStorage()
-    return this.http.put(`http://localhost:4000/site/add/${id}`, { sites: data })
+    return this.http.put(`${environment.apiEndPoint}/site/add/${id}`, { sites: data })
   }
 
   updateSites(sitesId: String, data: any) {
     const id = this.localStorage()
-    return this.http.put(`http://localhost:4000/site/update/${sitesId}/${id}`, data)
+    return this.http.put(`${environment.apiEndPoint}/site/update/${sitesId}/${id}`, data)
   }
   // ?delete sites
 
   deleteSite(id: String) {
     const userId = this.localStorage()
-    return this.http.delete(`http://localhost:4000/site/delete/${id}/${userId}`)
+    return this.http.delete(`${environment.apiEndPoint}/site/delete/${id}/${userId}`)
   }
 
   // ? getting only one siteObject using the id
   getObject(id: string) {
     const userId = this.localStorage()
-    return this.http.get(`http://localhost:4000/site/object/${id}/${userId}`)
+    return this.http.get(`${environment.apiEndPoint}/site/object/${id}/${userId}`)
   }
 
   // *********************************passwordList **************************************/
   // ?creating password list inside the passwordList array and each password is a object
   CreatePasswordList(id: string, data: object) {
     const userId = this.localStorage()
-    return this.http.put(`http://localhost:4000/password/create/${id}/${userId}`, data)
+    return this.http.put(`${environment.apiEndPoint}/password/create/${id}/${userId}`, data)
   }
 
   //? updating each of the password
   updatePasswordList(id: string, data: object, SitesId: string) {
     const userId = this.localStorage()
-    return this.http.put(`http://localhost:4000/password/update/${id}/${userId}/${SitesId}`, data)
+    return this.http.put(`${environment.apiEndPoint}/password/update/${id}/${userId}/${SitesId}`, data)
   }
 
   //? deleting each of the password list stored inside the passwordList
   deletePasswordList(id: string, SitesId: string) {
     const userId = this.localStorage()
-    return this.http.delete(`http://localhost:4000/password/delete/${id}/${userId}/${SitesId}`)
+    return this.http.delete(`${environment.apiEndPoint}/password/delete/${id}/${userId}/${SitesId}`)
   }
 
   // ************************************** all pas ************************************/
   getAllPass() {
     const userId = this.localStorage()
-    return this.http.get(`http://localhost:4000/every/pass/${userId}`)
+    return this.http.get(`${environment.apiEndPoint}/every/pass/${userId}`)
   }
 
   // ***************************************notes ****************************************/
 
   addNotes(data: any) {
     const userId = this.localStorage()
-    return this.http.put(`http://localhost:4000/note/add/${userId}`, data)
+    return this.http.put(`${environment.apiEndPoint}/note/add/${userId}`, data)
   }
 
   getNotes() {
     const userId = this.localStorage()
-    return this.http.get(`http://localhost:4000/note/get/${userId}`)
+    return this.http.get(`${environment.apiEndPoint}/note/get/${userId}`)
   }
 
   updateNotes(id: string, updatedData: any) {
     const userId = this.localStorage()
-    return this.http.put(`http://localhost:4000/note/update/${userId}/${id}`, updatedData)
+    return this.http.put(`${environment.apiEndPoint}/note/update/${userId}/${id}`, updatedData)
   }
   DeleteNotes(id: string) {
     const userId = this.localStorage()
-    return this.http.delete(`http://localhost:4000/note/delete/${userId}/${id}`)
+    return this.http.delete(`${environment.apiEndPoint}/note/delete/${userId}/${id}`)
   }
 
   checkJwt() {
     const token = localStorage.getItem('token')
     if (token) {
-      return this.http.get(`http://localhost:4000/user/jwt/${token}`)
+      return this.http.get(`${environment.apiEndPoint}/user/jwt/${token}`)
     }
     else {
       this.route.navigate(['/login']);
       this.toastr.warning("You don't have permission to access the page ");
-      return this.http.get(`http://localhost:4000/user/jwt/${token}`)
+      return this.http.get(`${environment.apiEndPoint}/user/jwt/${token}`)
     }
 
   }
